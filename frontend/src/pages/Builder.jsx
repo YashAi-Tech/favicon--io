@@ -13,8 +13,8 @@ import {
 
 const WATERMARK = `
 <a href="/" id="notion-badge" style="position:fixed;bottom:16px;right:16px;z-index:99999;display:flex;align-items:center;gap:7px;background:#fff;color:#000;padding:7px 12px;border-radius:9999px;font:500 12px/1 Inter,system-ui,sans-serif;text-decoration:none;box-shadow:0 4px 18px rgba(0,0,0,.12);border:1px solid #e6e6e6">
-<span style="width:15px;height:15px;display:inline-flex;align-items:center;justify-content:center;background:#000;color:#fff;border-radius:4px;font:700 9px/1 Inter,system-ui,sans-serif">N</span>
-Made with Notion</a>`;
+<span style="width:15px;height:15px;display:inline-flex;align-items:center;justify-content:center;background:#000;color:#fff;border-radius:4px;font:700 9px/1 Inter,system-ui,sans-serif">f</span>
+Made with favicon.io</a>`;
 
 const injectWatermark = (code) => {
   if (!code) return "";
@@ -202,7 +202,7 @@ const Builder = () => {
             <div className="rounded-xl border border-[#e6e6e6] p-2 focus-within:border-[#0075de]">
               <textarea rows={2} value={prompt} onChange={(e) => setPrompt(e.target.value)}
                 onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); iterate(); } }}
-                placeholder="Ask Notion to change something..."
+                placeholder="Ask favicon.io to change something..."
                 className="no-scrollbar w-full resize-none bg-transparent px-2 pt-1 text-[14px] outline-none placeholder-[#a39e98]" />
               <div className="flex justify-end">
                 <button disabled={generating || !prompt.trim()} onClick={iterate}
@@ -257,7 +257,7 @@ const Builder = () => {
                       <span className="absolute inset-0 animate-ping rounded-2xl bg-[#62aef0]/40" />
                       <Logo size={48} light showText={false} />
                     </span>
-                    <p className="text-[15px] font-medium text-white">Notion is building your app...</p>
+                    <p className="text-[15px] font-medium text-white">favicon.io is building your app...</p>
                     <p className="text-[13px] text-white/60">This usually takes 30–90 seconds</p>
                   </div>
                 ) : (

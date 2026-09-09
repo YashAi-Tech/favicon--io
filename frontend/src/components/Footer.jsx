@@ -38,7 +38,7 @@ const Footer = () => {
         </div>
 
         <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-[#e6e6e6] pt-8 sm:flex-row">
-          <p className="text-[13px] text-[#a39e98]">© {new Date().getFullYear()} Notion Labs, Inc. All rights reserved.</p>
+          <p className="text-[13px] text-[#a39e98]">© {new Date().getFullYear()} favicon.io Labs, Inc. All rights reserved.</p>
           <div className="flex gap-6">
             <a href="#privacy" className="text-[13px] text-[#a39e98] hover:text-black">Privacy Policy</a>
             <a href="#terms" className="text-[13px] text-[#a39e98] hover:text-black">Terms of Service</a>

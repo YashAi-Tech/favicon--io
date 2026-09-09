@@ -69,7 +69,7 @@ const Navbar = () => {
                 onClick={() => navigate("/signup")}
                 className="rounded-md border border-[#e6e6e6] bg-white px-3.5 py-1.5 text-[15px] font-medium text-black shadow-soft transition-transform duration-150 hover:scale-[1.02] active:scale-95"
               >
-                Get Notion free
+                Get favicon.io free
               </button>
             </>
           )}
@@ -110,7 +110,7 @@ const Navbar = () => {
                   Log in
                 </button>
                 <button onClick={() => { setOpen(false); navigate("/signup"); }} className="rounded-full bg-[#0075de] px-4 py-2.5 text-center text-[15px] font-medium text-white">
-                  Get Notion free
+                  Get favicon.io free
                 </button>
               </>
             )}

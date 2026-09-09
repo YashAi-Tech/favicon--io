@@ -76,7 +76,7 @@ const Hero = () => {
           One workspace.<br />Every idea, built.
         </h1>
         <p className="animate-float-up mx-auto mt-6 max-w-xl text-[17px] leading-relaxed text-white/70">
-          Describe a product, internal tool, or website in plain language. Notion's AI builds it, live, with you.
+          Describe a product, internal tool, or website in plain language. favicon.io's AI builds it, live, with you.
         </p>
 
         {/* Elevated white prompt pill */}
@@ -84,7 +84,7 @@ const Hero = () => {
           <div className="rounded-2xl border border-white/10 bg-white p-2.5 shadow-elev">
             <textarea
               ref={taRef} rows={2} value={prompt} onChange={autoGrow}
-              placeholder={`Ask Notion to create ${heroSuggestions[placeholderIdx]}...`}
+              placeholder={`Ask favicon.io to create ${heroSuggestions[placeholderIdx]}...`}
               className="no-scrollbar w-full resize-none bg-transparent px-3 pt-2 text-[16px] leading-relaxed text-black placeholder-[#a39e98] outline-none"
             />
             <div className="flex items-center justify-between px-1 pt-1">

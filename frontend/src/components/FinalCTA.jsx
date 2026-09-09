@@ -29,7 +29,7 @@ const FinalCTA = () => {
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleBuild()}
-              placeholder="Ask Notion to create a blog about..."
+              placeholder="Ask favicon.io to create a blog about..."
               className="w-full bg-transparent px-3 py-3 text-[16px] text-black placeholder-[#a39e98] outline-none"
             />
             <div className="flex justify-end px-1">

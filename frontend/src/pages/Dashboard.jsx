@@ -95,11 +95,11 @@ const Dashboard = () => {
           <h1 className="track-h2 text-[26px] font-bold text-black">
             Hey {user?.name?.split(" ")[0] || "there"}, what will you build?
           </h1>
-          <p className="mt-2 text-[15px] text-[#615d59]">Describe an app or website and Notion will generate it.</p>
+          <p className="mt-2 text-[15px] text-[#615d59]">Describe an app or website and favicon.io will generate it.</p>
 
           <div className="mt-6 rounded-xl border border-[#e6e6e6] bg-white p-2.5 focus-within:border-[#0075de]">
             <textarea rows={2} value={prompt} onChange={(e) => setPrompt(e.target.value)}
-              placeholder="Ask Notion to create a landing page for my coffee shop..."
+              placeholder="Ask favicon.io to create a landing page for my coffee shop..."
               className="no-scrollbar w-full resize-none bg-transparent px-3 pt-2 text-[15px] outline-none placeholder-[#a39e98]" />
             <div className="flex justify-end">
               <button disabled={creating || !prompt.trim()} onClick={() => createProject()}

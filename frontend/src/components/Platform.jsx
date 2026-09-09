@@ -19,10 +19,10 @@ const Platform = () => {
             One platform. Endless possibilities.
           </span>
           <h2 className="track-h1 mt-4 text-3xl font-bold text-black sm:text-[40px]">
-            Depend on Notion, from end to end
+            Depend on favicon.io, from end to end
           </h2>
           <p className="mt-4 text-[17px] leading-relaxed text-[#615d59]">
-            Notion handles your end-to-end infrastructure — from hosting and authentication to payments and integrations.
+            favicon.io handles your end-to-end infrastructure — from hosting and authentication to payments and integrations.
           </p>
         </div>
 

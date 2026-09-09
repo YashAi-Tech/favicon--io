@@ -47,7 +47,7 @@ const CustomerStories = () => {
       <div className="mx-auto max-w-2xl text-center">
         <h2 className="track-h1 text-3xl font-bold text-black sm:text-[40px]">The proof is in production</h2>
         <p className="mt-4 text-[17px] leading-relaxed text-[#615d59]">
-          These companies built the software they needed with Notion. Now they run their businesses on it.
+          These companies built the software they needed with favicon.io. Now they run their businesses on it.
         </p>
       </div>
 

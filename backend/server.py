@@ -163,7 +163,7 @@ def clean_code(text: str) -> str:
 
 async def generate_code(prompt: str, existing_code: str = "") -> str:
     system_message = (
-        "You are Notion's AI builder, an elite web engineer that builds beautiful, production-grade "
+        "You are favicon.io's AI builder, an elite web engineer that builds beautiful, production-grade "
         "single-file websites. You output ONE complete, self-contained HTML document.\n"
         "RULES:\n"
         "1. Return ONLY the raw HTML — no markdown fences, no commentary before or after.\n"

@@ -31,7 +31,7 @@ const Signup = () => {
     <AuthShell>
       <BrandMark />
       <div className="mt-8 rounded-xl border border-[#e6e6e6] bg-white p-8 shadow-soft">
-        <h1 className="track-h2 text-center text-[26px] font-bold text-black">Get Notion free</h1>
+        <h1 className="track-h2 text-center text-[26px] font-bold text-black">Get favicon.io free</h1>
         <p className="mt-1 text-center text-[14px] text-[#615d59]">Start building — no card required</p>
 
         <div className="mt-6"><GoogleButton /></div>

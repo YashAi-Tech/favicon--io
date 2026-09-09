@@ -12,7 +12,7 @@ const Showcase = () => {
       <div className="mb-8 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
         <div>
           <h2 className="track-h1 text-3xl font-bold text-black sm:text-[40px]">From the community</h2>
-          <p className="mt-2 text-[16px] text-[#615d59]">Explore what the community is building with Notion.</p>
+          <p className="mt-2 text-[16px] text-[#615d59]">Explore what the community is building with favicon.io.</p>
         </div>
         <a href="#community" className="text-[15px] font-medium text-[#0075de] underline-offset-4 hover:underline">
           View all

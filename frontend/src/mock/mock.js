@@ -1,6 +1,6 @@
-// Mock data for the Notion-styled AI builder clone.
+// Mock data for the favicon.io-styled AI builder clone.
 
-export const APP_NAME = "Notion";
+export const APP_NAME = "favicon.io";
 
 export const navLinks = [
   { label: "Product", href: "#product" },
@@ -44,7 +44,7 @@ export const showcaseProjects = [
 ];
 
 export const platformFeatures = [
-  { title: "Hosting, handled", desc: "Notion handles hosting, SSL, and backend infrastructure. Your code and data stay yours. Always.", color: "#62aef0" },
+  { title: "Hosting, handled", desc: "favicon.io handles hosting, SSL, and backend infrastructure. Your code and data stay yours. Always.", color: "#62aef0" },
   { title: "Your app stack, connected", desc: "Connect to your tech stack and build from the tools you already use. No integration code to maintain.", color: "#d6b6f6" },
   { title: "Payments, processed", desc: "Local payments, currency conversion, and tax compliance handled in 200+ countries and territories.", color: "#1aae39" },
   { title: "Safe and secure, as standard", desc: "Meet security and compliance requirements with automatic scans and audit logs.", color: "#dd5b00" },
@@ -58,7 +58,7 @@ export const brands = ["Adidas", "Asana", "ElevenLabs", "Zendesk", "Workday", "N
 export const customerStories = [
   {
     id: 1, company: "eXp Realty",
-    desc: "eXp Realty has cancelled millions in SaaS contracts for custom software built with Notion.",
+    desc: "eXp Realty has cancelled millions in SaaS contracts for custom software built with favicon.io.",
     stats: [
       { value: "$2M+", label: "savings per year" },
       { value: "85%", label: "fewer support tickets" },
@@ -68,7 +68,7 @@ export const customerStories = [
   {
     id: 2, company: "Klar",
     desc: "Three students created an AI system from the ground up to help anyone learn faster.",
-    quote: "When I realized Notion could make whatever I wanted, I was like 'this is the best thing I've ever seen'.",
+    quote: "When I realized favicon.io could make whatever I wanted, I was like 'this is the best thing I've ever seen'.",
     author: "Andreas Melander", role: "Co-founder",
     avatar: "https://images.unsplash.com/photo-1627161683077-e34782c24d81?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTB8MHwxfHNlYXJjaHwyfHxwcm9mZXNzaW9uYWwlMjBoZWFkc2hvdHxlbnwwfHx8fDE3ODg5MzQ1Mzl8MA&ixlib=rb-4.1.0&q=85",
     stats: [
@@ -79,7 +79,7 @@ export const customerStories = [
   },
   {
     id: 3, company: "The Scion Group",
-    desc: "The Scion Group is all-in on Notion, with every department building custom tools.",
+    desc: "The Scion Group is all-in on favicon.io, with every department building custom tools.",
     stats: [
       { value: "$1M+", label: "SaaS contracts retired" },
       { value: "100+", label: "apps in four months" },
@@ -99,8 +99,8 @@ export const customerStories = [
 
 export const globalStats = [
   { value: "1.2 million", label: "New projects built every week" },
-  { value: "60 million", label: "Projects built with Notion" },
-  { value: "900 million", label: "Monthly visits to Notion-built projects" },
+  { value: "60 million", label: "Projects built with favicon.io" },
+  { value: "900 million", label: "Monthly visits to favicon.io-built projects" },
 ];
 
 export const footerColumns = [
