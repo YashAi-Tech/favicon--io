@@ -14,7 +14,7 @@ const Showcase = () => {
           <h2 className="track-h1 text-3xl font-bold text-black sm:text-[40px]">From the community</h2>
           <p className="mt-2 text-[16px] text-[#615d59]">Explore what the community is building with favicon.io.</p>
         </div>
-        <a href="#community" className="text-[15px] font-medium text-[#0075de] underline-offset-4 hover:underline">
+        <a href="#community" className="text-[15px] font-medium text-[#f9540b] underline-offset-4 hover:underline">
           View all
         </a>
       </div>
@@ -25,7 +25,7 @@ const Showcase = () => {
             key={tab}
             onClick={() => setActive(tab)}
             className={`whitespace-nowrap rounded-md px-3.5 py-1.5 text-[14px] font-medium transition-colors ${
-              active === tab ? "bg-black text-white" : "border border-[#e6e6e6] bg-white text-[#31302e] hover:bg-[#f6f5f4]"
+              active === tab ? "bg-black text-white" : "border border-[#e6e6e6] bg-white text-[#31302e] hover:bg-[#faf8f5]"
             }`}
           >
             {tab}
@@ -39,7 +39,7 @@ const Showcase = () => {
             key={p.id}
             className="group overflow-hidden rounded-xl border border-[#e6e6e6] bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-soft"
           >
-            <div className="relative aspect-[16/10] overflow-hidden bg-[#f6f5f4]">
+            <div className="relative aspect-[16/10] overflow-hidden bg-[#faf8f5]">
               <img src={p.image} alt={p.title} loading="lazy"
                 className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
             </div>
@@ -55,7 +55,7 @@ const Showcase = () => {
               </div>
               <button
                 onClick={() => toggleLike(p.id)}
-                className="flex items-center gap-1.5 rounded-md px-2 py-1 text-[13px] font-medium text-[#615d59] transition-colors hover:bg-[#f6f5f4]"
+                className="flex items-center gap-1.5 rounded-md px-2 py-1 text-[13px] font-medium text-[#615d59] transition-colors hover:bg-[#faf8f5]"
               >
                 <Heart className={`h-4 w-4 transition-colors ${liked[p.id] ? "fill-[#ff64c8] text-[#ff64c8]" : ""}`} />
                 {p.remixes}

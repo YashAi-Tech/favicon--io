@@ -14,7 +14,7 @@ const FinalCTA = () => {
   };
 
   return (
-    <section id="download" className="bg-[#f6f5f4] py-24 lg:py-32">
+    <section id="download" className="bg-[#faf8f5] py-24 lg:py-32">
       <div className="mx-auto max-w-3xl px-5 text-center lg:px-8">
         <h2 className="track-h1 text-4xl font-bold text-black sm:text-5xl">
           Ready to bring your idea to life?
@@ -35,7 +35,7 @@ const FinalCTA = () => {
             <div className="flex justify-end px-1">
               <button
                 onClick={handleBuild}
-                className="flex h-10 items-center gap-1.5 rounded-full bg-[#0075de] px-5 text-[16px] font-medium text-white transition-all duration-150 hover:bg-[#005bab] active:scale-90"
+                className="flex h-10 items-center gap-1.5 rounded-full bg-[#f9540b] px-5 text-[16px] font-medium text-white transition-all duration-150 hover:bg-[#d9430a] active:scale-90"
               >
                 Build <ArrowUp className="h-4 w-4" />
               </button>

@@ -36,8 +36,8 @@ const AuthCallback = () => {
   }, [completeGoogle, navigate, location.hash]);
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-[#f6f5f4]">
-      <Loader2 className="h-8 w-8 animate-spin text-[#0075de]" />
+    <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-[#faf8f5]">
+      <Loader2 className="h-8 w-8 animate-spin text-[#f9540b]" />
       <p className="text-[15px] text-[#615d59]">
         {error ? "Sign-in failed, redirecting..." : "Signing you in..."}
       </p>

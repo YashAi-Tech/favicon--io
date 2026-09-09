@@ -10,40 +10,40 @@ body {
     font-feature-settings: "lnum" 1, "locl" 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #f6f5f4; /* canvas-soft */
-    color: rgba(0, 0, 0, 0.95); /* ink */
+    background-color: #faf8f5; /* warm cream canvas */
+    color: #1b1a18;
 }
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+    font-family: "JetBrains Mono", source-code-pro, Menlo, Monaco, Consolas, monospace;
 }
 
 ::selection {
-    background: #cfe4fb;
-    color: #000;
+    background: #ffd9c7;
+    color: #1b1a18;
 }
 
 @layer base {
   :root {
-        --background: 40 11% 96%;
-        --foreground: 0 0% 4%;
+        --background: 34 33% 97%;
+        --foreground: 30 6% 10%;
         --card: 0 0% 100%;
-        --card-foreground: 0 0% 4%;
+        --card-foreground: 30 6% 10%;
         --popover: 0 0% 100%;
-        --popover-foreground: 0 0% 4%;
-        --primary: 208 100% 44%;
+        --popover-foreground: 30 6% 10%;
+        --primary: 17 94% 51%;
         --primary-foreground: 0 0% 100%;
-        --secondary: 40 5% 96%;
+        --secondary: 34 20% 94%;
         --secondary-foreground: 0 0% 9%;
-        --muted: 40 5% 96%;
-        --muted-foreground: 30 3% 38%;
-        --accent: 40 5% 96%;
+        --muted: 34 20% 94%;
+        --muted-foreground: 30 5% 40%;
+        --accent: 34 20% 94%;
         --accent-foreground: 0 0% 9%;
         --destructive: 0 84.2% 60.2%;
         --destructive-foreground: 0 0% 98%;
-        --border: 0 0% 90%;
-        --input: 0 0% 90%;
-        --ring: 208 100% 44%;
+        --border: 30 12% 88%;
+        --input: 30 12% 88%;
+        --ring: 17 94% 51%;
         --radius: 0.75rem;
     }
 }
@@ -57,43 +57,44 @@ code {
     }
 }
 
-/* ---------- favicon.io display tracking ---------- */
-.track-display1 { letter-spacing: -2.125px; }
+/* ---------- Display tracking ---------- */
+.track-display1 { letter-spacing: -2.5px; }
 .track-display2 { letter-spacing: -1.875px; }
-.track-h1 { letter-spacing: -1px; }
-.track-h2 { letter-spacing: -0.625px; }
-.track-h3 { letter-spacing: -0.25px; }
+.track-h1 { letter-spacing: -1.2px; }
+.track-h2 { letter-spacing: -0.7px; }
+.track-h3 { letter-spacing: -0.35px; }
 .track-title { letter-spacing: -0.125px; }
 
-/* ---------- Barely-there layered elevation ---------- */
+/* ---------- Clean layered elevation ---------- */
 .shadow-soft {
   box-shadow:
-    0 0.175px 1.041px rgba(0,0,0,0.01),
-    0 0.8px 2.925px rgba(0,0,0,0.02),
-    0 2.025px 7.847px rgba(0,0,0,0.027),
-    0 4px 18px rgba(0,0,0,0.04);
+    0 1px 2px rgba(27,26,24,0.04),
+    0 4px 10px rgba(27,26,24,0.05),
+    0 12px 28px rgba(27,26,24,0.06);
 }
 .shadow-elev {
   box-shadow:
-    0 0.5px 2px rgba(0,0,0,0.02),
-    0 2px 6px rgba(0,0,0,0.03),
-    0 6px 16px rgba(0,0,0,0.04),
-    0 12px 30px rgba(0,0,0,0.045),
-    0 23px 52px rgba(0,0,0,0.05);
+    0 2px 6px rgba(27,26,24,0.06),
+    0 10px 24px rgba(27,26,24,0.08),
+    0 28px 60px rgba(27,26,24,0.10);
 }
-
-/* ---------- Night hero starfield ---------- */
-@keyframes twinkle {
-  0%, 100% { opacity: 0.35; }
-  50% { opacity: 1; }
-}
-.animate-twinkle { animation: twinkle 3.5s ease-in-out infinite; }
+/* Warm orange glow for the primary CTA */
+.shadow-glow { box-shadow: 0 8px 26px -6px rgba(249,84,11,0.45); }
 
 @keyframes floatUp {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 .animate-float-up { animation: floatUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+.animate-blink { animation: blink 1.1s step-end infinite; }
+
+/* Subtle dot-grid backdrop */
+.dot-grid {
+  background-image: radial-gradient(rgba(27,26,24,0.06) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
 
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

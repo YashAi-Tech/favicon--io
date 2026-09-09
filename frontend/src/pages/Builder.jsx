@@ -27,7 +27,7 @@ const INTEGRATIONS = [
   { name: "GitHub", desc: "Sync your code to a repository", color: "#181717" },
   { name: "Stripe", desc: "Accept payments worldwide", color: "#635BFF" },
   { name: "OpenAI", desc: "Add AI features to your app", color: "#10A37F" },
-  { name: "Resend", desc: "Send transactional emails", color: "#0075de" },
+  { name: "Resend", desc: "Send transactional emails", color: "#f9540b" },
   { name: "Vercel", desc: "Deploy to the edge", color: "#000000" },
 ];
 
@@ -114,14 +114,14 @@ const Builder = () => {
   };
 
   if (loading) {
-    return <div className="flex min-h-screen items-center justify-center bg-[#f6f5f4]"><Loader2 className="h-7 w-7 animate-spin text-[#a39e98]" /></div>;
+    return <div className="flex min-h-screen items-center justify-center bg-[#faf8f5]"><Loader2 className="h-7 w-7 animate-spin text-[#a39e98]" /></div>;
   }
 
   return (
-    <div className="flex h-screen flex-col bg-[#f6f5f4]">
+    <div className="flex h-screen flex-col bg-[#faf8f5]">
       <header className="flex items-center justify-between border-b border-[#e6e6e6] bg-white px-4 py-2">
         <div className="flex items-center gap-3">
-          <button onClick={() => navigate("/dashboard")} className="flex h-8 w-8 items-center justify-center rounded-md text-[#615d59] hover:bg-[#f6f5f4]">
+          <button onClick={() => navigate("/dashboard")} className="flex h-8 w-8 items-center justify-center rounded-md text-[#615d59] hover:bg-[#faf8f5]">
             <ArrowLeft className="h-4 w-4" />
           </button>
           <Logo size={22} showText={false} />
@@ -131,7 +131,7 @@ const Builder = () => {
         <div className="flex items-center gap-2">
           <Dialog>
             <DialogTrigger asChild>
-              <button className="flex items-center gap-1.5 rounded-md border border-[#e6e6e6] px-3 py-1.5 text-[13px] font-medium text-[#31302e] hover:bg-[#f6f5f4]">
+              <button className="flex items-center gap-1.5 rounded-md border border-[#e6e6e6] px-3 py-1.5 text-[13px] font-medium text-[#31302e] hover:bg-[#faf8f5]">
                 <Plug className="h-4 w-4" /> Integrations
               </button>
             </DialogTrigger>
@@ -143,7 +143,7 @@ const Builder = () => {
               <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                 {INTEGRATIONS.map((it) => (
                   <button key={it.name} onClick={() => toast({ title: `${it.name} (simulated)`, description: "Add your own keys to connect for real." })}
-                    className="flex items-center gap-3 rounded-lg border border-[#e6e6e6] p-3 text-left transition-colors hover:border-[#0075de]">
+                    className="flex items-center gap-3 rounded-lg border border-[#e6e6e6] p-3 text-left transition-colors hover:border-[#f9540b]">
                     <span className="flex h-9 w-9 items-center justify-center rounded-lg text-[13px] font-bold text-white" style={{ background: it.color }}>
                       {it.name[0]}
                     </span>
@@ -157,10 +157,10 @@ const Builder = () => {
             </DialogContent>
           </Dialog>
 
-          <button onClick={pushGithub} className="flex items-center gap-1.5 rounded-md border border-[#e6e6e6] px-3 py-1.5 text-[13px] font-medium text-[#31302e] hover:bg-[#f6f5f4]">
+          <button onClick={pushGithub} className="flex items-center gap-1.5 rounded-md border border-[#e6e6e6] px-3 py-1.5 text-[13px] font-medium text-[#31302e] hover:bg-[#faf8f5]">
             <Github className="h-4 w-4" /> {project.github_url ? "Synced" : "GitHub"}
           </button>
-          <button onClick={publish} className="flex items-center gap-1.5 rounded-full bg-[#0075de] px-4 py-1.5 text-[13px] font-medium text-white transition-colors hover:bg-[#005bab]">
+          <button onClick={publish} className="flex items-center gap-1.5 rounded-full bg-[#f9540b] px-4 py-1.5 text-[13px] font-medium text-white transition-colors hover:bg-[#d9430a]">
             <Rocket className="h-4 w-4" /> {project.published_url ? "Published" : "Publish"}
           </button>
         </div>
@@ -171,26 +171,26 @@ const Builder = () => {
         <aside className="flex w-[380px] flex-col border-r border-[#e6e6e6] bg-white">
           <div className="flex-1 space-y-4 overflow-y-auto p-4">
             <div className="flex gap-3">
-              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-[#213183]">
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-[#111111]">
                 <Sparkles className="h-3.5 w-3.5 text-white" />
               </span>
-              <div className="rounded-xl rounded-tl-sm bg-[#f6f5f4] px-3.5 py-2.5 text-[14px] text-[#31302e]">
+              <div className="rounded-xl rounded-tl-sm bg-[#faf8f5] px-3.5 py-2.5 text-[14px] text-[#31302e]">
                 I've built your first version! Ask me to change anything — colors, text, layout, add sections.
               </div>
             </div>
 
             {(project.messages || []).map((m, i) => (
               <div key={i} className="flex justify-end gap-3">
-                <div className="rounded-xl rounded-tr-sm bg-[#0075de] px-3.5 py-2.5 text-[14px] text-white">{m.content}</div>
+                <div className="rounded-xl rounded-tr-sm bg-[#f9540b] px-3.5 py-2.5 text-[14px] text-white">{m.content}</div>
               </div>
             ))}
 
             {generating && (
               <div className="flex gap-3">
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-[#213183]">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-[#111111]">
                   <Sparkles className="h-3.5 w-3.5 text-white" />
                 </span>
-                <div className="flex items-center gap-2 rounded-xl rounded-tl-sm bg-[#f6f5f4] px-3.5 py-2.5 text-[14px] text-[#615d59]">
+                <div className="flex items-center gap-2 rounded-xl rounded-tl-sm bg-[#faf8f5] px-3.5 py-2.5 text-[14px] text-[#615d59]">
                   <Loader2 className="h-4 w-4 animate-spin" /> Building your changes...
                 </div>
               </div>
@@ -199,14 +199,14 @@ const Builder = () => {
           </div>
 
           <div className="border-t border-[#e6e6e6] p-3">
-            <div className="rounded-xl border border-[#e6e6e6] p-2 focus-within:border-[#0075de]">
+            <div className="rounded-xl border border-[#e6e6e6] p-2 focus-within:border-[#f9540b]">
               <textarea rows={2} value={prompt} onChange={(e) => setPrompt(e.target.value)}
                 onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); iterate(); } }}
                 placeholder="Ask favicon.io to change something..."
                 className="no-scrollbar w-full resize-none bg-transparent px-2 pt-1 text-[14px] outline-none placeholder-[#a39e98]" />
               <div className="flex justify-end">
                 <button disabled={generating || !prompt.trim()} onClick={iterate}
-                  className="flex h-8 w-8 items-center justify-center rounded-full bg-[#0075de] text-white transition-transform hover:scale-105 active:scale-90 disabled:opacity-40">
+                  className="flex h-8 w-8 items-center justify-center rounded-full bg-[#f9540b] text-white transition-transform hover:scale-105 active:scale-90 disabled:opacity-40">
                   {generating ? <Loader2 className="h-4 w-4 animate-spin" /> : <ArrowUp className="h-4 w-4" />}
                 </button>
               </div>
@@ -215,9 +215,9 @@ const Builder = () => {
         </aside>
 
         {/* Preview / Code */}
-        <main className="flex flex-1 flex-col bg-[#f6f5f4]">
+        <main className="flex flex-1 flex-col bg-[#faf8f5]">
           <div className="flex items-center justify-between border-b border-[#e6e6e6] bg-white px-4 py-2">
-            <div className="flex items-center gap-1 rounded-md bg-[#f6f5f4] p-1">
+            <div className="flex items-center gap-1 rounded-md bg-[#faf8f5] p-1">
               <button onClick={() => setTab("preview")}
                 className={`flex items-center gap-1.5 rounded-[5px] px-3 py-1.5 text-[13px] font-medium transition-colors ${tab === "preview" ? "bg-white text-black shadow-soft" : "text-[#615d59]"}`}>
                 <Eye className="h-4 w-4" /> Preview
@@ -235,7 +235,7 @@ const Builder = () => {
                 </a>
               )}
               {tab === "code" && (
-                <button onClick={copyCode} className="flex items-center gap-1.5 rounded-md border border-[#e6e6e6] px-2.5 py-1.5 text-[12px] font-medium text-[#615d59] hover:bg-[#f6f5f4]">
+                <button onClick={copyCode} className="flex items-center gap-1.5 rounded-md border border-[#e6e6e6] px-2.5 py-1.5 text-[12px] font-medium text-[#615d59] hover:bg-[#faf8f5]">
                   {copied ? <Check className="h-3.5 w-3.5 text-[#1aae39]" /> : <Copy className="h-3.5 w-3.5" />} {copied ? "Copied" : "Copy"}
                 </button>
               )}
@@ -245,14 +245,14 @@ const Builder = () => {
           <div className="flex-1 overflow-hidden p-4">
             {tab === "preview" ? (
               <div className="h-full overflow-hidden rounded-xl border border-[#e6e6e6] bg-white shadow-soft">
-                <div className="flex items-center gap-1.5 border-b border-[#e6e6e6] bg-[#f6f5f4] px-3 py-2">
+                <div className="flex items-center gap-1.5 border-b border-[#e6e6e6] bg-[#faf8f5] px-3 py-2">
                   <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
                   <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
                   <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
                   <span className="ml-3 flex items-center gap-1 text-[11px] text-[#a39e98]"><Monitor className="h-3 w-3" /> preview</span>
                 </div>
                 {generating && !project.code ? (
-                  <div className="flex h-[calc(100%-33px)] flex-col items-center justify-center gap-4 bg-[#213183]">
+                  <div className="flex h-[calc(100%-33px)] flex-col items-center justify-center gap-4 bg-[#111111]">
                     <span className="relative flex h-16 w-16 items-center justify-center">
                       <span className="absolute inset-0 animate-ping rounded-2xl bg-[#62aef0]/40" />
                       <Logo size={48} light showText={false} />

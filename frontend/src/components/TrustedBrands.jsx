@@ -3,7 +3,7 @@ import { brands } from "../mock/mock";
 
 const TrustedBrands = () => {
   return (
-    <section className="bg-[#f6f5f4] py-14">
+    <section className="bg-[#faf8f5] py-14">
       <div className="mx-auto max-w-[1280px] px-5 lg:px-8">
         <p className="text-center text-[14px] font-medium text-[#615d59]">
           Trusted by top brands and teams building the software that runs their business

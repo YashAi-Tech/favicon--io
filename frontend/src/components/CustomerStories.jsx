@@ -13,7 +13,7 @@ const StoryCard = ({ story, featured }) => (
         {story.desc}
       </p>
       {story.quote && (
-        <blockquote className="mt-6 border-l-2 border-[#0075de] pl-4 text-[17px] font-medium text-black">
+        <blockquote className="mt-6 border-l-2 border-[#f9540b] pl-4 text-[17px] font-medium text-black">
           “{story.quote}”
         </blockquote>
       )}

@@ -15,7 +15,7 @@ const Platform = () => {
     <section id="product" className="border-y border-[#e6e6e6] bg-white py-20 lg:py-28">
       <div className="mx-auto max-w-[1280px] px-5 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <span className="inline-block rounded-full bg-white px-2.5 py-1 text-[12px] font-semibold uppercase tracking-[0.125px] text-[#0075de] shadow-soft">
+          <span className="inline-block rounded-full bg-white px-2.5 py-1 text-[12px] font-semibold uppercase tracking-[0.125px] text-[#f9540b] shadow-soft">
             One platform. Endless possibilities.
           </span>
           <h2 className="track-h1 mt-4 text-3xl font-bold text-black sm:text-[40px]">
@@ -46,7 +46,7 @@ const Platform = () => {
             return (
               <div key={f.title}
                 className={`group relative overflow-hidden rounded-xl border border-[#e6e6e6] bg-white p-7 transition-all duration-300 hover:shadow-soft ${big ? "lg:col-span-2" : ""}`}>
-                <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg text-white" style={{ background: f.color }}>
+                <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-[#f9540b] text-white">
                   <Icon className="h-5 w-5" />
                 </div>
                 <h3 className="track-h3 text-[22px] font-bold text-black">{f.title}</h3>

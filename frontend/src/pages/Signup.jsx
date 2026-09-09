@@ -46,13 +46,13 @@ const Signup = () => {
           <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className={inputCls} />
           <input type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password (min 6 chars)" className={inputCls} />
           <button disabled={busy} type="submit"
-            className="flex w-full items-center justify-center gap-2 rounded-full bg-[#0075de] py-3 text-[16px] font-medium text-white transition-all hover:bg-[#005bab] active:scale-[0.98] disabled:opacity-60">
+            className="flex w-full items-center justify-center gap-2 rounded-full bg-[#f9540b] py-3 text-[16px] font-medium text-white transition-all hover:bg-[#d9430a] active:scale-[0.98] disabled:opacity-60">
             {busy && <Loader2 className="h-4 w-4 animate-spin" />} Create account
           </button>
         </form>
 
         <p className="mt-6 text-center text-[14px] text-[#615d59]">
-          Already have an account? <Link to="/login" className="font-medium text-[#0075de] hover:underline">Log in</Link>
+          Already have an account? <Link to="/login" className="font-medium text-[#f9540b] hover:underline">Log in</Link>
         </p>
       </div>
     </AuthShell>

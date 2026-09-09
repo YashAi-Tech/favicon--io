@@ -20,7 +20,7 @@ const GoogleButton = () => {
   return (
     <button
       onClick={handleGoogle}
-      className="flex w-full items-center justify-center gap-3 rounded-md border border-[#e6e6e6] bg-white py-3 text-[15px] font-medium text-black transition-colors hover:bg-[#f6f5f4]"
+      className="flex w-full items-center justify-center gap-3 rounded-md border border-[#e6e6e6] bg-white py-3 text-[15px] font-medium text-black transition-colors hover:bg-[#faf8f5]"
     >
       <svg className="h-5 w-5" viewBox="0 0 48 48">
         <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
@@ -34,13 +34,13 @@ const GoogleButton = () => {
 };
 
 const AuthShell = ({ children }) => (
-  <div className="flex min-h-screen items-center justify-center bg-[#f6f5f4] px-5 py-16">
+  <div className="flex min-h-screen items-center justify-center bg-[#faf8f5] px-5 py-16">
     <div className="w-full max-w-md">{children}</div>
   </div>
 );
 
 const inputCls =
-  "w-full rounded-[4px] border border-[#dddddd] px-3 py-2.5 text-[15px] text-black outline-none transition-shadow focus:border-[#0075de] focus:shadow-soft";
+  "w-full rounded-[4px] border border-[#dddddd] px-3 py-2.5 text-[15px] text-black outline-none transition-shadow focus:border-[#f9540b] focus:shadow-soft";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -81,13 +81,13 @@ const Login = () => {
           <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className={inputCls} />
           <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className={inputCls} />
           <button disabled={busy} type="submit"
-            className="flex w-full items-center justify-center gap-2 rounded-full bg-[#0075de] py-3 text-[16px] font-medium text-white transition-all hover:bg-[#005bab] active:scale-[0.98] disabled:opacity-60">
+            className="flex w-full items-center justify-center gap-2 rounded-full bg-[#f9540b] py-3 text-[16px] font-medium text-white transition-all hover:bg-[#d9430a] active:scale-[0.98] disabled:opacity-60">
             {busy && <Loader2 className="h-4 w-4 animate-spin" />} Log in
           </button>
         </form>
 
         <p className="mt-6 text-center text-[14px] text-[#615d59]">
-          Don't have an account? <Link to="/signup" className="font-medium text-[#0075de] hover:underline">Sign up</Link>
+          Don't have an account? <Link to="/signup" className="font-medium text-[#f9540b] hover:underline">Sign up</Link>
         </p>
       </div>
     </AuthShell>

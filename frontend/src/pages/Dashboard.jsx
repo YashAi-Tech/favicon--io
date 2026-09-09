@@ -20,12 +20,12 @@ const AppHeader = () => {
           {user?.picture ? (
             <img src={user.picture} alt="me" className="h-8 w-8 rounded-full object-cover" />
           ) : (
-            <span className="flex h-8 w-8 items-center justify-center rounded-md bg-[#213183] text-[13px] font-semibold uppercase text-white">
+            <span className="flex h-8 w-8 items-center justify-center rounded-md bg-[#111111] text-[13px] font-semibold uppercase text-white">
               {user?.name?.[0] || "U"}
             </span>
           )}
           <button onClick={() => { logout(); navigate("/"); }}
-            className="flex h-8 w-8 items-center justify-center rounded-md text-[#615d59] hover:bg-[#f6f5f4] hover:text-black" title="Log out">
+            className="flex h-8 w-8 items-center justify-center rounded-md text-[#615d59] hover:bg-[#faf8f5] hover:text-black" title="Log out">
             <LogOut className="h-4 w-4" />
           </button>
         </div>
@@ -87,7 +87,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f6f5f4]">
+    <div className="min-h-screen bg-[#faf8f5]">
       <AppHeader />
 
       <main className="mx-auto max-w-6xl px-5 py-12">
@@ -97,13 +97,13 @@ const Dashboard = () => {
           </h1>
           <p className="mt-2 text-[15px] text-[#615d59]">Describe an app or website and favicon.io will generate it.</p>
 
-          <div className="mt-6 rounded-xl border border-[#e6e6e6] bg-white p-2.5 focus-within:border-[#0075de]">
+          <div className="mt-6 rounded-xl border border-[#e6e6e6] bg-white p-2.5 focus-within:border-[#f9540b]">
             <textarea rows={2} value={prompt} onChange={(e) => setPrompt(e.target.value)}
               placeholder="Ask favicon.io to create a landing page for my coffee shop..."
               className="no-scrollbar w-full resize-none bg-transparent px-3 pt-2 text-[15px] outline-none placeholder-[#a39e98]" />
             <div className="flex justify-end">
               <button disabled={creating || !prompt.trim()} onClick={() => createProject()}
-                className="flex h-9 items-center gap-1.5 rounded-full bg-[#0075de] px-4 text-[15px] font-medium text-white transition-all hover:bg-[#005bab] active:scale-90 disabled:opacity-50">
+                className="flex h-9 items-center gap-1.5 rounded-full bg-[#f9540b] px-4 text-[15px] font-medium text-white transition-all hover:bg-[#d9430a] active:scale-90 disabled:opacity-50">
                 {creating ? <Loader2 className="h-4 w-4 animate-spin" /> : <>Build <ArrowUp className="h-4 w-4" /></>}
               </button>
             </div>
@@ -138,7 +138,7 @@ const Dashboard = () => {
                     <p className="truncate text-[15px] font-semibold text-black">{p.name}</p>
                     <p className="text-[12px] text-[#a39e98]">
                       {new Date(p.updated_at).toLocaleDateString()}
-                      {p.status === "generating" && <span className="ml-2 text-[#0075de]">● Building</span>}
+                      {p.status === "generating" && <span className="ml-2 text-[#f9540b]">● Building</span>}
                       {p.published_url && <span className="ml-2 text-[#1aae39]">● Live</span>}
                     </p>
                   </div>

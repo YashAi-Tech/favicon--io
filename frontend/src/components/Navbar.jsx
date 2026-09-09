@@ -20,26 +20,24 @@ const Navbar = () => {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-white/85 backdrop-blur-xl border-b border-[#e6e6e6]" : "bg-transparent"
+        scrolled ? "bg-[#faf8f5]/85 backdrop-blur-xl border-b border-[#ece6df]" : "bg-transparent"
       }`}
     >
       <nav className="mx-auto flex max-w-[1280px] items-center justify-between px-5 py-3 lg:px-8">
         <div className="flex items-center gap-9">
           <button onClick={() => navigate("/")} aria-label="Home">
-            <Logo light={!scrolled} />
+            <Logo />
           </button>
           <ul className="hidden items-center gap-6 lg:flex">
             {navLinks.map((l) => (
               <li key={l.label}>
                 <a
                   href={l.href}
-                  className={`flex items-center gap-0.5 text-[15px] font-medium transition-colors ${
-                    scrolled ? "text-[#31302e] hover:text-black" : "text-white/85 hover:text-white"
-                  }`}
+                  className="flex items-center gap-0.5 text-[15px] font-medium text-[#4a463f] transition-colors hover:text-[#1b1a18]"
                 >
                   {l.label}
                   {(l.label === "Product" || l.label === "Solutions") && (
-                    <ChevronDown className={`h-3.5 w-3.5 ${scrolled ? "text-[#a39e98]" : "text-white/60"}`} />
+                    <ChevronDown className="h-3.5 w-3.5 text-[#a39e98]" />
                   )}
                 </a>
               </li>
@@ -51,7 +49,7 @@ const Navbar = () => {
           {user ? (
             <button
               onClick={() => navigate("/dashboard")}
-              className="rounded-md border border-[#e6e6e6] bg-white px-3.5 py-1.5 text-[15px] font-medium text-black shadow-soft transition-transform duration-150 hover:scale-[1.02] active:scale-95"
+              className="rounded-full bg-[#f9540b] px-4 py-2 text-[15px] font-semibold text-white shadow-glow transition-all duration-150 hover:bg-[#d9430a] active:scale-95"
             >
               Go to workspace
             </button>
@@ -59,24 +57,22 @@ const Navbar = () => {
             <>
               <button
                 onClick={() => navigate("/login")}
-                className={`text-[15px] font-medium transition-colors ${
-                  scrolled ? "text-[#31302e] hover:text-black" : "text-white/85 hover:text-white"
-                }`}
+                className="text-[15px] font-medium text-[#4a463f] transition-colors hover:text-[#1b1a18]"
               >
                 Log in
               </button>
               <button
                 onClick={() => navigate("/signup")}
-                className="rounded-md border border-[#e6e6e6] bg-white px-3.5 py-1.5 text-[15px] font-medium text-black shadow-soft transition-transform duration-150 hover:scale-[1.02] active:scale-95"
+                className="rounded-full bg-[#f9540b] px-4 py-2 text-[15px] font-semibold text-white shadow-glow transition-all duration-150 hover:bg-[#d9430a] active:scale-95"
               >
-                Get favicon.io free
+                Start building
               </button>
             </>
           )}
         </div>
 
         <button
-          className={`flex h-9 w-9 items-center justify-center rounded-md lg:hidden ${scrolled ? "text-black" : "text-white"}`}
+          className="flex h-9 w-9 items-center justify-center rounded-md text-[#1b1a18] lg:hidden"
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
         >
@@ -85,14 +81,14 @@ const Navbar = () => {
       </nav>
 
       {open && (
-        <div className="border-t border-[#e6e6e6] bg-white px-5 py-4 lg:hidden">
+        <div className="border-t border-[#ece6df] bg-[#faf8f5] px-5 py-4 lg:hidden">
           <ul className="flex flex-col gap-1">
             {navLinks.map((l) => (
               <li key={l.label}>
                 <a
                   href={l.href}
                   onClick={() => setOpen(false)}
-                  className="block rounded-md px-3 py-2.5 text-[15px] font-medium text-[#31302e] hover:bg-[#f6f5f4]"
+                  className="block rounded-md px-3 py-2.5 text-[15px] font-medium text-[#4a463f] hover:bg-white"
                 >
                   {l.label}
                 </a>
@@ -101,16 +97,16 @@ const Navbar = () => {
           </ul>
           <div className="mt-3 flex flex-col gap-2">
             {user ? (
-              <button onClick={() => { setOpen(false); navigate("/dashboard"); }} className="rounded-md border border-[#e6e6e6] bg-white px-4 py-2.5 text-center text-[15px] font-medium text-black">
+              <button onClick={() => { setOpen(false); navigate("/dashboard"); }} className="rounded-full bg-[#f9540b] px-4 py-2.5 text-center text-[15px] font-semibold text-white">
                 Go to workspace
               </button>
             ) : (
               <>
-                <button onClick={() => { setOpen(false); navigate("/login"); }} className="rounded-md border border-[#e6e6e6] px-4 py-2.5 text-center text-[15px] font-medium text-black">
+                <button onClick={() => { setOpen(false); navigate("/login"); }} className="rounded-full border border-[#ece6df] bg-white px-4 py-2.5 text-center text-[15px] font-medium text-[#1b1a18]">
                   Log in
                 </button>
-                <button onClick={() => { setOpen(false); navigate("/signup"); }} className="rounded-full bg-[#0075de] px-4 py-2.5 text-center text-[15px] font-medium text-white">
-                  Get favicon.io free
+                <button onClick={() => { setOpen(false); navigate("/signup"); }} className="rounded-full bg-[#f9540b] px-4 py-2.5 text-center text-[15px] font-semibold text-white">
+                  Start building
                 </button>
               </>
             )}

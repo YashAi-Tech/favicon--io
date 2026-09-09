@@ -1,41 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import { ArrowUp, Paperclip, Sparkles } from "lucide-react";
+import { ArrowRight, Paperclip, Sparkles } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { heroSuggestions, stickerColors } from "../mock/mock";
+import { heroSuggestions } from "../mock/mock";
 import { useAuth } from "../context/AuthContext";
-
-// Decorative "sticker constellation" — small colored dots, decoration only.
-const Starfield = () => {
-  const stars = React.useMemo(() => {
-    const arr = [];
-    for (let i = 0; i < 60; i++) {
-      arr.push({
-        top: Math.random() * 100,
-        left: Math.random() * 100,
-        size: Math.random() * 2 + 1,
-        delay: Math.random() * 3,
-        color: Math.random() > 0.7 ? stickerColors[Math.floor(Math.random() * stickerColors.length)] : "#ffffff",
-      });
-    }
-    return arr;
-  }, []);
-  return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      {stars.map((s, i) => (
-        <span
-          key={i}
-          className="animate-twinkle absolute rounded-full"
-          style={{
-            top: `${s.top}%`, left: `${s.left}%`,
-            width: `${s.size}px`, height: `${s.size}px`,
-            background: s.color, animationDelay: `${s.delay}s`,
-            boxShadow: `0 0 6px ${s.color}`,
-          }}
-        />
-      ))}
-    </div>
-  );
-};
 
 const Hero = () => {
   const [prompt, setPrompt] = useState("");
@@ -62,40 +29,48 @@ const Hero = () => {
   };
 
   return (
-    <section id="top" className="relative overflow-hidden bg-[#213183] pt-36 pb-28 lg:pt-44 lg:pb-36">
-      <Starfield />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-[#1b2a70]" />
+    <section id="top" className="relative overflow-hidden pt-36 pb-24 lg:pt-44 lg:pb-32">
+      {/* clean warm backdrop */}
+      <div className="dot-grid pointer-events-none absolute inset-0 -z-10 opacity-60" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[520px] bg-[radial-gradient(60%_60%_at_50%_0%,rgba(249,84,11,0.14),transparent_70%)]" />
 
       <div className="relative mx-auto max-w-4xl px-5 text-center lg:px-8">
-        <div className="animate-float-up mx-auto mb-6 flex w-fit items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 text-[12px] font-semibold uppercase tracking-[0.125px] text-white backdrop-blur">
-          <Sparkles className="h-3.5 w-3.5 text-[#62aef0]" />
-          Meet the night shift — build while you sleep
+        <div className="animate-float-up mx-auto mb-7 flex w-fit items-center gap-2 rounded-full border border-[#ecdfd4] bg-white/70 px-3.5 py-1.5 text-[13px] font-medium text-[#8a5a3a] backdrop-blur">
+          <span className="flex h-4 w-4 items-center justify-center rounded-full bg-[#f9540b]">
+            <Sparkles className="h-2.5 w-2.5 text-white" />
+          </span>
+          Introducing the AI app builder
         </div>
 
-        <h1 className="animate-float-up track-display1 text-[42px] font-bold leading-[1.02] text-white sm:text-6xl lg:text-[64px]">
-          One workspace.<br />Every idea, built.
+        <h1 className="animate-float-up track-display1 text-[44px] font-extrabold leading-[0.98] text-[#1b1a18] sm:text-6xl lg:text-[72px]">
+          Ship your idea<br />
+          <span className="relative inline-block">
+            <span className="relative z-10">in minutes</span>
+            <span className="absolute inset-x-0 bottom-1.5 -z-0 h-4 -rotate-1 bg-[#ffd9c7]" />
+          </span>
+          , not months.
         </h1>
-        <p className="animate-float-up mx-auto mt-6 max-w-xl text-[17px] leading-relaxed text-white/70">
-          Describe a product, internal tool, or website in plain language. favicon.io's AI builds it, live, with you.
+        <p className="animate-float-up mx-auto mt-6 max-w-xl text-[18px] leading-relaxed text-[#615d59]">
+          Describe an app, internal tool, or website in plain language. favicon.io builds it, live, with you.
         </p>
 
-        {/* Elevated white prompt pill */}
+        {/* prompt card */}
         <div className="animate-float-up mx-auto mt-10 max-w-2xl">
-          <div className="rounded-2xl border border-white/10 bg-white p-2.5 shadow-elev">
+          <div className="rounded-2xl border border-[#ece6df] bg-white p-2.5 shadow-elev transition-shadow focus-within:shadow-glow">
             <textarea
               ref={taRef} rows={2} value={prompt} onChange={autoGrow}
               placeholder={`Ask favicon.io to create ${heroSuggestions[placeholderIdx]}...`}
-              className="no-scrollbar w-full resize-none bg-transparent px-3 pt-2 text-[16px] leading-relaxed text-black placeholder-[#a39e98] outline-none"
+              className="no-scrollbar w-full resize-none bg-transparent px-3 pt-2 text-[16px] leading-relaxed text-[#1b1a18] placeholder-[#a39e98] outline-none"
             />
             <div className="flex items-center justify-between px-1 pt-1">
-              <button className="flex h-9 w-9 items-center justify-center rounded-md text-[#615d59] transition-colors hover:bg-[#f6f5f4]" title="Attach">
+              <button className="flex h-9 w-9 items-center justify-center rounded-lg text-[#615d59] transition-colors hover:bg-[#faf8f5]" title="Attach">
                 <Paperclip className="h-[18px] w-[18px]" />
               </button>
               <button
                 onClick={handleBuild}
-                className="flex h-10 items-center gap-1.5 rounded-full bg-[#0075de] px-5 text-[16px] font-medium text-white transition-all duration-150 hover:bg-[#005bab] active:scale-90"
+                className="flex h-10 items-center gap-1.5 rounded-full bg-[#f9540b] px-5 text-[15px] font-semibold text-white shadow-glow transition-all duration-150 hover:bg-[#d9430a] active:scale-95"
               >
-                Build <ArrowUp className="h-4 w-4" />
+                Build it <ArrowRight className="h-4 w-4" />
               </button>
             </div>
           </div>
@@ -105,7 +80,7 @@ const Hero = () => {
               <button
                 key={s}
                 onClick={() => setPrompt(`Create ${s}`)}
-                className="rounded-full bg-white/10 px-3.5 py-1.5 text-[13px] font-medium text-white/80 backdrop-blur transition-colors hover:bg-white/20 hover:text-white"
+                className="rounded-full border border-[#ece6df] bg-white/70 px-3.5 py-1.5 text-[13px] font-medium text-[#615d59] backdrop-blur transition-colors hover:border-[#f9540b] hover:text-[#1b1a18]"
               >
                 {s}
               </button>
