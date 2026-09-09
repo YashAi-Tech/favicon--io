@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ArrowUp, Paperclip, Globe, Sparkles } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { heroSuggestions } from "../mock/mock";
-import { useToast } from "../hooks/use-toast";
+import { useAuth } from "../context/AuthContext";
 
 const Hero = () => {
   const [prompt, setPrompt] = useState("");
   const [placeholderIdx, setPlaceholderIdx] = useState(0);
-  const { toast } = useToast();
+  const { user } = useAuth();
+  const navigate = useNavigate();
   const taRef = useRef(null);
 
   useEffect(() => {
@@ -17,11 +19,13 @@ const Hero = () => {
   }, []);
 
   const handleBuild = () => {
-    const idea = prompt.trim() || heroSuggestions[placeholderIdx];
-    toast({
-      title: "Building your idea",
-      description: `Lovable is spinning up: "${idea}". (Preview — connect a backend to make it real.)`,
-    });
+    const idea = prompt.trim() || `Create ${heroSuggestions[placeholderIdx]}`;
+    localStorage.setItem("lovable_pending_prompt", idea);
+    if (user) {
+      navigate("/dashboard");
+    } else {
+      navigate("/signup");
+    }
   };
 
   const autoGrow = (e) => {

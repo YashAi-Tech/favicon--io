@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { ArrowUp } from "lucide-react";
-import { useToast } from "../hooks/use-toast";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const FinalCTA = () => {
   const [prompt, setPrompt] = useState("");
-  const { toast } = useToast();
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   const handleBuild = () => {
-    toast({
-      title: "Let's build it",
-      description: `Kicking off: "${prompt.trim() || "your idea"}". (Preview — connect a backend to make it real.)`,
-    });
+    localStorage.setItem("lovable_pending_prompt", prompt.trim() || "Create a modern landing page");
+    navigate(user ? "/dashboard" : "/signup");
   };
 
   return (

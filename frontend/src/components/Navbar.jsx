@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Heart, Menu, X } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { navLinks } from "../mock/mock";
+import { useAuth } from "../context/AuthContext";
 
 const Logo = () => (
   <a href="#top" className="flex items-center gap-2 select-none">
@@ -23,6 +25,8 @@ const Logo = () => (
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -54,18 +58,32 @@ const Navbar = () => {
         </div>
 
         <div className="hidden items-center gap-3 lg:flex">
-          <a
-            href="#login"
-            className="text-[14px] font-medium text-neutral-700 transition-colors hover:text-neutral-900"
-          >
-            Log in
-          </a>
-          <a
-            href="#signup"
-            className="rounded-full bg-neutral-900 px-4 py-2 text-[14px] font-medium text-white transition-transform duration-200 hover:scale-[1.03] hover:bg-neutral-800"
-          >
-            Get started
-          </a>
+          {user ? (
+            <button
+              onClick={() => navigate("/dashboard")}
+              className="flex items-center gap-2 rounded-full bg-neutral-900 px-4 py-2 text-[14px] font-medium text-white transition-transform duration-200 hover:scale-[1.03] hover:bg-neutral-800"
+            >
+              {user.picture ? (
+                <img src={user.picture} alt="" className="h-5 w-5 rounded-full object-cover" />
+              ) : null}
+              Dashboard
+            </button>
+          ) : (
+            <>
+              <button
+                onClick={() => navigate("/login")}
+                className="text-[14px] font-medium text-neutral-700 transition-colors hover:text-neutral-900"
+              >
+                Log in
+              </button>
+              <button
+                onClick={() => navigate("/signup")}
+                className="rounded-full bg-neutral-900 px-4 py-2 text-[14px] font-medium text-white transition-transform duration-200 hover:scale-[1.03] hover:bg-neutral-800"
+              >
+                Get started
+              </button>
+            </>
+          )}
         </div>
 
         <button
@@ -93,12 +111,20 @@ const Navbar = () => {
             ))}
           </ul>
           <div className="mt-3 flex flex-col gap-2">
-            <a href="#login" className="rounded-full border border-neutral-300 px-4 py-2.5 text-center text-[15px] font-medium text-neutral-800">
-              Log in
-            </a>
-            <a href="#signup" className="rounded-full bg-neutral-900 px-4 py-2.5 text-center text-[15px] font-medium text-white">
-              Get started
-            </a>
+            {user ? (
+              <button onClick={() => { setOpen(false); navigate("/dashboard"); }} className="rounded-full bg-neutral-900 px-4 py-2.5 text-center text-[15px] font-medium text-white">
+                Dashboard
+              </button>
+            ) : (
+              <>
+                <button onClick={() => { setOpen(false); navigate("/login"); }} className="rounded-full border border-neutral-300 px-4 py-2.5 text-center text-[15px] font-medium text-neutral-800">
+                  Log in
+                </button>
+                <button onClick={() => { setOpen(false); navigate("/signup"); }} className="rounded-full bg-neutral-900 px-4 py-2.5 text-center text-[15px] font-medium text-white">
+                  Get started
+                </button>
+              </>
+            )}
           </div>
         </div>
       )}
