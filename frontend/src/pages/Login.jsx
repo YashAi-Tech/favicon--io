@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Heart, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import { useToast } from "../hooks/use-toast";
+import Logo from "../components/Logo";
 
-const HeartLogo = () => (
+const BrandMark = () => (
   <Link to="/" className="mx-auto flex w-fit items-center gap-2">
-    <Heart className="h-8 w-8 fill-[url(#authgrad)] text-transparent" strokeWidth={0} />
-    <svg width="0" height="0"><defs>
-      <linearGradient id="authgrad" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stopColor="#ff7a2f" /><stop offset="50%" stopColor="#ff5b8a" /><stop offset="100%" stopColor="#a855f7" />
-      </linearGradient></defs></svg>
-    <span className="text-2xl font-semibold tracking-tight text-neutral-900">Lovable</span>
+    <Logo size={30} />
   </Link>
 );
 
@@ -24,7 +20,7 @@ const GoogleButton = () => {
   return (
     <button
       onClick={handleGoogle}
-      className="flex w-full items-center justify-center gap-3 rounded-xl border border-neutral-300 bg-white py-3 text-[15px] font-medium text-neutral-800 transition-colors hover:bg-neutral-50"
+      className="flex w-full items-center justify-center gap-3 rounded-md border border-[#e6e6e6] bg-white py-3 text-[15px] font-medium text-black transition-colors hover:bg-[#f6f5f4]"
     >
       <svg className="h-5 w-5" viewBox="0 0 48 48">
         <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
@@ -38,13 +34,13 @@ const GoogleButton = () => {
 };
 
 const AuthShell = ({ children }) => (
-  <div className="relative flex min-h-screen items-center justify-center overflow-hidden px-5 py-16">
-    <div className="pointer-events-none absolute inset-0 -z-10">
-      <div className="lov-blob animate-pulse-glow absolute -top-24 left-1/2 h-[420px] w-[620px] -translate-x-1/2 rounded-full bg-gradient-to-br from-orange-300 via-rose-300 to-purple-300" />
-    </div>
+  <div className="flex min-h-screen items-center justify-center bg-[#f6f5f4] px-5 py-16">
     <div className="w-full max-w-md">{children}</div>
   </div>
 );
+
+const inputCls =
+  "w-full rounded-[4px] border border-[#dddddd] px-3 py-2.5 text-[15px] text-black outline-none transition-shadow focus:border-[#0075de] focus:shadow-soft";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -69,36 +65,34 @@ const Login = () => {
 
   return (
     <AuthShell>
-      <HeartLogo />
-      <div className="mt-8 rounded-3xl border border-neutral-200 bg-white p-8 shadow-xl">
-        <h1 className="text-center text-2xl font-bold tracking-tight text-neutral-900">Welcome back</h1>
-        <p className="mt-1 text-center text-[14px] text-neutral-500">Log in to continue building</p>
+      <BrandMark />
+      <div className="mt-8 rounded-xl border border-[#e6e6e6] bg-white p-8 shadow-soft">
+        <h1 className="track-h2 text-center text-[26px] font-bold text-black">Log in</h1>
+        <p className="mt-1 text-center text-[14px] text-[#615d59]">Welcome back to your workspace</p>
 
         <div className="mt-6"><GoogleButton /></div>
         <div className="my-5 flex items-center gap-3">
-          <div className="h-px flex-1 bg-neutral-200" />
-          <span className="text-[12px] uppercase tracking-wide text-neutral-400">or</span>
-          <div className="h-px flex-1 bg-neutral-200" />
+          <div className="h-px flex-1 bg-[#e6e6e6]" />
+          <span className="text-[12px] uppercase tracking-wide text-[#a39e98]">or</span>
+          <div className="h-px flex-1 bg-[#e6e6e6]" />
         </div>
 
-        <form onSubmit={submit} className="space-y-4">
-          <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email"
-            className="w-full rounded-xl border border-neutral-300 px-4 py-3 text-[15px] outline-none focus:border-neutral-900" />
-          <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password"
-            className="w-full rounded-xl border border-neutral-300 px-4 py-3 text-[15px] outline-none focus:border-neutral-900" />
+        <form onSubmit={submit} className="space-y-3.5">
+          <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className={inputCls} />
+          <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className={inputCls} />
           <button disabled={busy} type="submit"
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-neutral-900 py-3 text-[15px] font-semibold text-white transition-colors hover:bg-neutral-800 disabled:opacity-60">
+            className="flex w-full items-center justify-center gap-2 rounded-full bg-[#0075de] py-3 text-[16px] font-medium text-white transition-all hover:bg-[#005bab] active:scale-[0.98] disabled:opacity-60">
             {busy && <Loader2 className="h-4 w-4 animate-spin" />} Log in
           </button>
         </form>
 
-        <p className="mt-6 text-center text-[14px] text-neutral-500">
-          Don't have an account? <Link to="/signup" className="font-semibold text-neutral-900 hover:underline">Sign up</Link>
+        <p className="mt-6 text-center text-[14px] text-[#615d59]">
+          Don't have an account? <Link to="/signup" className="font-medium text-[#0075de] hover:underline">Sign up</Link>
         </p>
       </div>
     </AuthShell>
   );
 };
 
-export { AuthShell, HeartLogo, GoogleButton };
+export { AuthShell, BrandMark, GoogleButton, inputCls };
 export default Login;

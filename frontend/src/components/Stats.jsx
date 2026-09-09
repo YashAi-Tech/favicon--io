@@ -3,22 +3,18 @@ import { globalStats } from "../mock/mock";
 
 const Stats = () => {
   return (
-    <section className="bg-neutral-50 py-20 lg:py-28">
+    <section className="border-y border-[#e6e6e6] bg-white py-20 lg:py-28">
       <div className="mx-auto max-w-5xl px-5 text-center lg:px-8">
-        <h2 className="text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl lg:text-[42px]">
-          Millions count on Lovable
-        </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-[17px] leading-relaxed text-neutral-500">
-          People across the world use Lovable every day to solve problems and seize opportunities. Join them now and turn 'someday' into today.
+        <h2 className="track-h1 text-3xl font-bold text-black sm:text-[40px]">Millions count on Notion</h2>
+        <p className="mx-auto mt-4 max-w-2xl text-[17px] leading-relaxed text-[#615d59]">
+          People across the world use Notion every day to solve problems and seize opportunities. Join them now and turn 'someday' into today.
         </p>
 
         <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-3">
           {globalStats.map((s) => (
             <div key={s.label} className="flex flex-col items-center">
-              <p className="lov-gradient-text text-4xl font-extrabold tracking-tight lg:text-5xl">
-                {s.value}
-              </p>
-              <p className="mt-3 max-w-[220px] text-[15px] leading-snug text-neutral-500">{s.label}</p>
+              <p className="track-display2 text-4xl font-bold text-black lg:text-5xl">{s.value}</p>
+              <p className="mt-3 max-w-[220px] text-[15px] leading-snug text-[#615d59]">{s.label}</p>
             </div>
           ))}
         </div>

@@ -1,26 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Heart, Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { navLinks } from "../mock/mock";
 import { useAuth } from "../context/AuthContext";
-
-const Logo = () => (
-  <a href="#top" className="flex items-center gap-2 select-none">
-    <span className="relative flex h-7 w-7 items-center justify-center">
-      <Heart className="h-7 w-7 fill-[url(#lovgrad)] text-transparent" strokeWidth={0} />
-      <svg width="0" height="0" className="absolute">
-        <defs>
-          <linearGradient id="lovgrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#ff7a2f" />
-            <stop offset="50%" stopColor="#ff5b8a" />
-            <stop offset="100%" stopColor="#a855f7" />
-          </linearGradient>
-        </defs>
-      </svg>
-    </span>
-    <span className="text-[19px] font-semibold tracking-tight text-neutral-900">Lovable</span>
-  </a>
-);
+import Logo from "./Logo";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -29,7 +12,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    const onScroll = () => setScrolled(window.scrollY > 8);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -37,57 +20,63 @@ const Navbar = () => {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-white/80 backdrop-blur-xl border-b border-neutral-200/70" : "bg-transparent"
+        scrolled ? "bg-white/85 backdrop-blur-xl border-b border-[#e6e6e6]" : "bg-transparent"
       }`}
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3.5 lg:px-8">
-        <div className="flex items-center gap-10">
-          <Logo />
-          <ul className="hidden items-center gap-7 lg:flex">
+      <nav className="mx-auto flex max-w-[1280px] items-center justify-between px-5 py-3 lg:px-8">
+        <div className="flex items-center gap-9">
+          <button onClick={() => navigate("/")} aria-label="Home">
+            <Logo light={!scrolled} />
+          </button>
+          <ul className="hidden items-center gap-6 lg:flex">
             {navLinks.map((l) => (
               <li key={l.label}>
                 <a
                   href={l.href}
-                  className="text-[14px] font-medium text-neutral-600 transition-colors hover:text-neutral-900"
+                  className={`flex items-center gap-0.5 text-[15px] font-medium transition-colors ${
+                    scrolled ? "text-[#31302e] hover:text-black" : "text-white/85 hover:text-white"
+                  }`}
                 >
                   {l.label}
+                  {(l.label === "Product" || l.label === "Solutions") && (
+                    <ChevronDown className={`h-3.5 w-3.5 ${scrolled ? "text-[#a39e98]" : "text-white/60"}`} />
+                  )}
                 </a>
               </li>
             ))}
           </ul>
         </div>
 
-        <div className="hidden items-center gap-3 lg:flex">
+        <div className="hidden items-center gap-4 lg:flex">
           {user ? (
             <button
               onClick={() => navigate("/dashboard")}
-              className="flex items-center gap-2 rounded-full bg-neutral-900 px-4 py-2 text-[14px] font-medium text-white transition-transform duration-200 hover:scale-[1.03] hover:bg-neutral-800"
+              className="rounded-md border border-[#e6e6e6] bg-white px-3.5 py-1.5 text-[15px] font-medium text-black shadow-soft transition-transform duration-150 hover:scale-[1.02] active:scale-95"
             >
-              {user.picture ? (
-                <img src={user.picture} alt="" className="h-5 w-5 rounded-full object-cover" />
-              ) : null}
-              Dashboard
+              Go to workspace
             </button>
           ) : (
             <>
               <button
                 onClick={() => navigate("/login")}
-                className="text-[14px] font-medium text-neutral-700 transition-colors hover:text-neutral-900"
+                className={`text-[15px] font-medium transition-colors ${
+                  scrolled ? "text-[#31302e] hover:text-black" : "text-white/85 hover:text-white"
+                }`}
               >
                 Log in
               </button>
               <button
                 onClick={() => navigate("/signup")}
-                className="rounded-full bg-neutral-900 px-4 py-2 text-[14px] font-medium text-white transition-transform duration-200 hover:scale-[1.03] hover:bg-neutral-800"
+                className="rounded-md border border-[#e6e6e6] bg-white px-3.5 py-1.5 text-[15px] font-medium text-black shadow-soft transition-transform duration-150 hover:scale-[1.02] active:scale-95"
               >
-                Get started
+                Get Notion free
               </button>
             </>
           )}
         </div>
 
         <button
-          className="flex h-9 w-9 items-center justify-center rounded-lg text-neutral-800 lg:hidden"
+          className={`flex h-9 w-9 items-center justify-center rounded-md lg:hidden ${scrolled ? "text-black" : "text-white"}`}
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
         >
@@ -96,14 +85,14 @@ const Navbar = () => {
       </nav>
 
       {open && (
-        <div className="border-t border-neutral-200 bg-white px-5 py-4 lg:hidden">
+        <div className="border-t border-[#e6e6e6] bg-white px-5 py-4 lg:hidden">
           <ul className="flex flex-col gap-1">
             {navLinks.map((l) => (
               <li key={l.label}>
                 <a
                   href={l.href}
                   onClick={() => setOpen(false)}
-                  className="block rounded-lg px-3 py-2.5 text-[15px] font-medium text-neutral-700 hover:bg-neutral-100"
+                  className="block rounded-md px-3 py-2.5 text-[15px] font-medium text-[#31302e] hover:bg-[#f6f5f4]"
                 >
                   {l.label}
                 </a>
@@ -112,16 +101,16 @@ const Navbar = () => {
           </ul>
           <div className="mt-3 flex flex-col gap-2">
             {user ? (
-              <button onClick={() => { setOpen(false); navigate("/dashboard"); }} className="rounded-full bg-neutral-900 px-4 py-2.5 text-center text-[15px] font-medium text-white">
-                Dashboard
+              <button onClick={() => { setOpen(false); navigate("/dashboard"); }} className="rounded-md border border-[#e6e6e6] bg-white px-4 py-2.5 text-center text-[15px] font-medium text-black">
+                Go to workspace
               </button>
             ) : (
               <>
-                <button onClick={() => { setOpen(false); navigate("/login"); }} className="rounded-full border border-neutral-300 px-4 py-2.5 text-center text-[15px] font-medium text-neutral-800">
+                <button onClick={() => { setOpen(false); navigate("/login"); }} className="rounded-md border border-[#e6e6e6] px-4 py-2.5 text-center text-[15px] font-medium text-black">
                   Log in
                 </button>
-                <button onClick={() => { setOpen(false); navigate("/signup"); }} className="rounded-full bg-neutral-900 px-4 py-2.5 text-center text-[15px] font-medium text-white">
-                  Get started
+                <button onClick={() => { setOpen(false); navigate("/signup"); }} className="rounded-full bg-[#0075de] px-4 py-2.5 text-center text-[15px] font-medium text-white">
+                  Get Notion free
                 </button>
               </>
             )}

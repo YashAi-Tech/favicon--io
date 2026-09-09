@@ -1,8 +1,41 @@
 import React, { useState, useEffect, useRef } from "react";
-import { ArrowUp, Paperclip, Globe, Sparkles } from "lucide-react";
+import { ArrowUp, Paperclip, Sparkles } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { heroSuggestions } from "../mock/mock";
+import { heroSuggestions, stickerColors } from "../mock/mock";
 import { useAuth } from "../context/AuthContext";
+
+// Decorative "sticker constellation" — small colored dots, decoration only.
+const Starfield = () => {
+  const stars = React.useMemo(() => {
+    const arr = [];
+    for (let i = 0; i < 60; i++) {
+      arr.push({
+        top: Math.random() * 100,
+        left: Math.random() * 100,
+        size: Math.random() * 2 + 1,
+        delay: Math.random() * 3,
+        color: Math.random() > 0.7 ? stickerColors[Math.floor(Math.random() * stickerColors.length)] : "#ffffff",
+      });
+    }
+    return arr;
+  }, []);
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      {stars.map((s, i) => (
+        <span
+          key={i}
+          className="animate-twinkle absolute rounded-full"
+          style={{
+            top: `${s.top}%`, left: `${s.left}%`,
+            width: `${s.size}px`, height: `${s.size}px`,
+            background: s.color, animationDelay: `${s.delay}s`,
+            boxShadow: `0 0 6px ${s.color}`,
+          }}
+        />
+      ))}
+    </div>
+  );
+};
 
 const Hero = () => {
   const [prompt, setPrompt] = useState("");
@@ -12,80 +45,57 @@ const Hero = () => {
   const taRef = useRef(null);
 
   useEffect(() => {
-    const t = setInterval(() => {
-      setPlaceholderIdx((i) => (i + 1) % heroSuggestions.length);
-    }, 2600);
+    const t = setInterval(() => setPlaceholderIdx((i) => (i + 1) % heroSuggestions.length), 2600);
     return () => clearInterval(t);
   }, []);
 
   const handleBuild = () => {
     const idea = prompt.trim() || `Create ${heroSuggestions[placeholderIdx]}`;
     localStorage.setItem("lovable_pending_prompt", idea);
-    if (user) {
-      navigate("/dashboard");
-    } else {
-      navigate("/signup");
-    }
+    navigate(user ? "/dashboard" : "/signup");
   };
 
   const autoGrow = (e) => {
     setPrompt(e.target.value);
     const el = taRef.current;
-    if (el) {
-      el.style.height = "auto";
-      el.style.height = Math.min(el.scrollHeight, 200) + "px";
-    }
+    if (el) { el.style.height = "auto"; el.style.height = Math.min(el.scrollHeight, 200) + "px"; }
   };
 
   return (
-    <section id="top" className="relative overflow-hidden pt-40 pb-24 lg:pt-48 lg:pb-32">
-      {/* soft gradient blobs */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="lov-blob animate-pulse-glow absolute -top-20 left-1/2 h-[520px] w-[720px] -translate-x-1/2 rounded-full bg-gradient-to-br from-orange-300 via-rose-300 to-purple-300" />
-        <div className="lov-blob absolute right-10 top-40 h-72 w-72 rounded-full bg-purple-200" />
-        <div className="lov-blob absolute left-0 top-56 h-64 w-64 rounded-full bg-orange-200" />
-      </div>
+    <section id="top" className="relative overflow-hidden bg-[#213183] pt-36 pb-28 lg:pt-44 lg:pb-36">
+      <Starfield />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-[#1b2a70]" />
 
-      <div className="mx-auto max-w-4xl px-5 text-center lg:px-8">
-        <div className="animate-float-up mx-auto mb-6 flex w-fit items-center gap-2 rounded-full border border-neutral-200 bg-white/70 px-3.5 py-1.5 text-[13px] font-medium text-neutral-600 backdrop-blur">
-          <Sparkles className="h-3.5 w-3.5 text-rose-500" />
-          Introducing the all-new AI App Builder
+      <div className="relative mx-auto max-w-4xl px-5 text-center lg:px-8">
+        <div className="animate-float-up mx-auto mb-6 flex w-fit items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 text-[12px] font-semibold uppercase tracking-[0.125px] text-white backdrop-blur">
+          <Sparkles className="h-3.5 w-3.5 text-[#62aef0]" />
+          Meet the night shift — build while you sleep
         </div>
 
-        <h1 className="animate-float-up text-[44px] font-extrabold leading-[1.05] tracking-tight text-neutral-900 sm:text-6xl lg:text-7xl">
-          Build something <span className="lov-gradient-text">Lovable</span>
+        <h1 className="animate-float-up track-display1 text-[42px] font-bold leading-[1.02] text-white sm:text-6xl lg:text-[64px]">
+          One workspace.<br />Every idea, built.
         </h1>
-        <p className="animate-float-up mx-auto mt-5 max-w-xl text-[17px] leading-relaxed text-neutral-500">
-          Bring a new product, internal tool, or entire company to life. If you can describe it, you can build it.
+        <p className="animate-float-up mx-auto mt-6 max-w-xl text-[17px] leading-relaxed text-white/70">
+          Describe a product, internal tool, or website in plain language. Notion's AI builds it, live, with you.
         </p>
 
-        {/* Prompt box */}
-        <div className="animate-float-up mx-auto mt-9 max-w-2xl">
-          <div className="rounded-[22px] border border-neutral-200 bg-white p-2.5 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] transition-shadow focus-within:shadow-[0_24px_70px_-15px_rgba(168,85,247,0.28)]">
+        {/* Elevated white prompt pill */}
+        <div className="animate-float-up mx-auto mt-10 max-w-2xl">
+          <div className="rounded-2xl border border-white/10 bg-white p-2.5 shadow-elev">
             <textarea
-              ref={taRef}
-              rows={2}
-              value={prompt}
-              onChange={autoGrow}
-              placeholder={`Ask Lovable to create ${heroSuggestions[placeholderIdx]}...`}
-              className="no-scrollbar w-full resize-none bg-transparent px-3 pt-2 text-[16px] leading-relaxed text-neutral-800 placeholder-neutral-400 outline-none"
+              ref={taRef} rows={2} value={prompt} onChange={autoGrow}
+              placeholder={`Ask Notion to create ${heroSuggestions[placeholderIdx]}...`}
+              className="no-scrollbar w-full resize-none bg-transparent px-3 pt-2 text-[16px] leading-relaxed text-black placeholder-[#a39e98] outline-none"
             />
             <div className="flex items-center justify-between px-1 pt-1">
-              <div className="flex items-center gap-1">
-                <button className="flex h-9 w-9 items-center justify-center rounded-full text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-700" title="Attach">
-                  <Paperclip className="h-[18px] w-[18px]" />
-                </button>
-                <button className="flex items-center gap-1.5 rounded-full px-2.5 py-2 text-[13px] font-medium text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-700" title="Public">
-                  <Globe className="h-[18px] w-[18px]" />
-                  Public
-                </button>
-              </div>
+              <button className="flex h-9 w-9 items-center justify-center rounded-md text-[#615d59] transition-colors hover:bg-[#f6f5f4]" title="Attach">
+                <Paperclip className="h-[18px] w-[18px]" />
+              </button>
               <button
                 onClick={handleBuild}
-                className="flex h-9 items-center gap-1.5 rounded-full bg-neutral-900 px-4 text-[14px] font-semibold text-white transition-transform duration-200 hover:scale-[1.04] hover:bg-neutral-800 active:scale-95"
+                className="flex h-10 items-center gap-1.5 rounded-full bg-[#0075de] px-5 text-[16px] font-medium text-white transition-all duration-150 hover:bg-[#005bab] active:scale-90"
               >
-                Build
-                <ArrowUp className="h-4 w-4" />
+                Build <ArrowUp className="h-4 w-4" />
               </button>
             </div>
           </div>
@@ -95,7 +105,7 @@ const Hero = () => {
               <button
                 key={s}
                 onClick={() => setPrompt(`Create ${s}`)}
-                className="rounded-full border border-neutral-200 bg-white/70 px-3.5 py-1.5 text-[13px] font-medium text-neutral-600 backdrop-blur transition-colors hover:border-neutral-300 hover:text-neutral-900"
+                className="rounded-full bg-white/10 px-3.5 py-1.5 text-[13px] font-medium text-white/80 backdrop-blur transition-colors hover:bg-white/20 hover:text-white"
               >
                 {s}
               </button>

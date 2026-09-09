@@ -6,11 +6,12 @@
 
 body {
     margin: 0;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
+    font-family: 'Inter', -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-feature-settings: "lnum" 1, "locl" 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #ffffff;
-    color: #0d0d0d;
+    background-color: #f6f5f4; /* canvas-soft */
+    color: rgba(0, 0, 0, 0.95); /* ink */
 }
 
 code {
@@ -18,32 +19,32 @@ code {
 }
 
 ::selection {
-    background: #ffb199;
-    color: #1a1a1a;
+    background: #cfe4fb;
+    color: #000;
 }
 
 @layer base {
   :root {
-        --background: 0 0% 100%;
-        --foreground: 0 0% 3.9%;
+        --background: 40 11% 96%;
+        --foreground: 0 0% 4%;
         --card: 0 0% 100%;
-        --card-foreground: 0 0% 3.9%;
+        --card-foreground: 0 0% 4%;
         --popover: 0 0% 100%;
-        --popover-foreground: 0 0% 3.9%;
-        --primary: 0 0% 9%;
-        --primary-foreground: 0 0% 98%;
-        --secondary: 0 0% 96.1%;
+        --popover-foreground: 0 0% 4%;
+        --primary: 208 100% 44%;
+        --primary-foreground: 0 0% 100%;
+        --secondary: 40 5% 96%;
         --secondary-foreground: 0 0% 9%;
-        --muted: 0 0% 96.1%;
-        --muted-foreground: 0 0% 45.1%;
-        --accent: 0 0% 96.1%;
+        --muted: 40 5% 96%;
+        --muted-foreground: 30 3% 38%;
+        --accent: 40 5% 96%;
         --accent-foreground: 0 0% 9%;
         --destructive: 0 84.2% 60.2%;
         --destructive-foreground: 0 0% 98%;
-        --border: 0 0% 89.8%;
-        --input: 0 0% 89.8%;
-        --ring: 0 0% 3.9%;
-        --radius: 0.5rem;
+        --border: 0 0% 90%;
+        --input: 0 0% 90%;
+        --ring: 208 100% 44%;
+        --radius: 0.75rem;
     }
 }
 
@@ -56,39 +57,43 @@ code {
     }
 }
 
-/* Lovable brand gradient */
-.lov-gradient-text {
-  background: linear-gradient(95deg, #ff7a2f 0%, #ff5b8a 45%, #a855f7 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* ---------- Notion display tracking ---------- */
+.track-display1 { letter-spacing: -2.125px; }
+.track-display2 { letter-spacing: -1.875px; }
+.track-h1 { letter-spacing: -1px; }
+.track-h2 { letter-spacing: -0.625px; }
+.track-h3 { letter-spacing: -0.25px; }
+.track-title { letter-spacing: -0.125px; }
+
+/* ---------- Barely-there layered elevation ---------- */
+.shadow-soft {
+  box-shadow:
+    0 0.175px 1.041px rgba(0,0,0,0.01),
+    0 0.8px 2.925px rgba(0,0,0,0.02),
+    0 2.025px 7.847px rgba(0,0,0,0.027),
+    0 4px 18px rgba(0,0,0,0.04);
+}
+.shadow-elev {
+  box-shadow:
+    0 0.5px 2px rgba(0,0,0,0.02),
+    0 2px 6px rgba(0,0,0,0.03),
+    0 6px 16px rgba(0,0,0,0.04),
+    0 12px 30px rgba(0,0,0,0.045),
+    0 23px 52px rgba(0,0,0,0.05);
 }
 
-.lov-gradient-bg {
-  background: linear-gradient(95deg, #ff7a2f 0%, #ff5b8a 50%, #a855f7 100%);
+/* ---------- Night hero starfield ---------- */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
 }
-
-/* Soft blurred blobs */
-.lov-blob {
-  filter: blur(80px);
-  opacity: 0.55;
-}
+.animate-twinkle { animation: twinkle 3.5s ease-in-out infinite; }
 
 @keyframes floatUp {
-  from { opacity: 0; transform: translateY(24px); }
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
-.animate-float-up {
-  animation: floatUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-@keyframes pulseGlow {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
-  50% { opacity: 0.8; transform: scale(1.08); }
-}
-.animate-pulse-glow {
-  animation: pulseGlow 6s ease-in-out infinite;
-}
+.animate-float-up { animation: floatUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
 
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

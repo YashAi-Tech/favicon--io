@@ -14,36 +14,30 @@ const FinalCTA = () => {
   };
 
   return (
-    <section id="pricing" className="relative overflow-hidden bg-neutral-950 py-28 lg:py-36">
-      {/* pulse gradient background */}
-      <div className="pointer-events-none absolute inset-0 -z-0">
-        <div className="animate-pulse-glow absolute left-1/2 top-1/2 h-[600px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-orange-500/30 via-rose-500/30 to-purple-600/30 blur-[120px]" />
-      </div>
-
-      <div className="relative z-10 mx-auto max-w-3xl px-5 text-center lg:px-8">
-        <h2 className="text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
-          Ready to bring your <span className="lov-gradient-text">idea</span> to life?
+    <section id="download" className="bg-[#f6f5f4] py-24 lg:py-32">
+      <div className="mx-auto max-w-3xl px-5 text-center lg:px-8">
+        <h2 className="track-h1 text-4xl font-bold text-black sm:text-5xl">
+          Ready to bring your idea to life?
         </h2>
-        <p className="mx-auto mt-5 max-w-xl text-[17px] text-neutral-400">
+        <p className="mx-auto mt-5 max-w-xl text-[17px] text-[#615d59]">
           Start building for free. No credit card required.
         </p>
 
         <div className="mx-auto mt-10 max-w-2xl">
-          <div className="rounded-[22px] border border-white/10 bg-white/[0.06] p-2.5 backdrop-blur-xl">
+          <div className="rounded-2xl border border-[#e6e6e6] bg-white p-2.5 shadow-soft">
             <input
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
-              placeholder="Ask Lovable to create a blog about..."
               onKeyDown={(e) => e.key === "Enter" && handleBuild()}
-              className="w-full bg-transparent px-3 py-3 text-[16px] text-white placeholder-neutral-500 outline-none"
+              placeholder="Ask Notion to create a blog about..."
+              className="w-full bg-transparent px-3 py-3 text-[16px] text-black placeholder-[#a39e98] outline-none"
             />
             <div className="flex justify-end px-1">
               <button
                 onClick={handleBuild}
-                className="flex h-10 items-center gap-1.5 rounded-full bg-white px-5 text-[14px] font-semibold text-neutral-900 transition-transform duration-200 hover:scale-[1.04] active:scale-95"
+                className="flex h-10 items-center gap-1.5 rounded-full bg-[#0075de] px-5 text-[16px] font-medium text-white transition-all duration-150 hover:bg-[#005bab] active:scale-90"
               >
-                Build
-                <ArrowUp className="h-4 w-4" />
+                Build <ArrowUp className="h-4 w-4" />
               </button>
             </div>
           </div>
