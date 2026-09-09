@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   ArrowLeft, ArrowUp, Loader2, Code2, Eye, Github, Rocket,
-  Plug, Copy, Check, ExternalLink, Sparkles, Monitor,
+  Plug, Copy, Check, ExternalLink, Sparkles, Monitor, Tablet, Smartphone, AlertTriangle, RefreshCw,
 } from "lucide-react";
 import api from "../lib/api";
 import { useToast } from "../hooks/use-toast";
@@ -39,6 +39,7 @@ const Builder = () => {
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState("preview");
+  const [device, setDevice] = useState("desktop");
   const [prompt, setPrompt] = useState("");
   const [copied, setCopied] = useState(false);
   const chatEndRef = useRef(null);
@@ -111,6 +112,18 @@ const Builder = () => {
       setProject((p) => ({ ...p, published_url: res.data.published_url }));
       toast({ title: "Published (simulated)", description: res.data.published_url });
     } catch (e) { toast({ title: "Failed" }); }
+  };
+
+  const retry = async () => {
+    if (generating) return;
+    setProject((p) => ({ ...p, status: "generating", error: null }));
+    try {
+      const res = await api.post("/projects/generate", { prompt: project.prompt, project_id: projectId });
+      setProject(res.data);
+    } catch (e) {
+      toast({ title: "Retry failed", description: e?.response?.data?.detail || "Try again shortly." });
+      load();
+    }
   };
 
   if (loading) {
@@ -228,6 +241,26 @@ const Builder = () => {
               </button>
             </div>
             <div className="flex items-center gap-2">
+              {tab === "preview" && (
+                <div className="flex items-center gap-0.5 rounded-md bg-[#faf8f5] p-1">
+                  {[
+                    { k: "desktop", Icon: Monitor, label: "Desktop" },
+                    { k: "tablet", Icon: Tablet, label: "Tablet" },
+                    { k: "mobile", Icon: Smartphone, label: "Mobile" },
+                  ].map(({ k, Icon, label }) => (
+                    <button
+                      key={k}
+                      onClick={() => setDevice(k)}
+                      title={label}
+                      className={`flex h-7 w-7 items-center justify-center rounded-[5px] transition-colors ${
+                        device === k ? "bg-white text-[#f9540b] shadow-soft" : "text-[#615d59] hover:text-black"
+                      }`}
+                    >
+                      <Icon className="h-4 w-4" />
+                    </button>
+                  ))}
+                </div>
+              )}
               {project.published_url && (
                 <a href={`https://${project.published_url.replace(/^https?:\/\//, "")}`} target="_blank" rel="noreferrer"
                   className="flex items-center gap-1 text-[12px] font-medium text-[#1aae39]">
@@ -242,26 +275,47 @@ const Builder = () => {
             </div>
           </div>
 
-          <div className="flex-1 overflow-hidden p-4">
+          <div className="flex-1 overflow-auto p-4">
             {tab === "preview" ? (
-              <div className="h-full overflow-hidden rounded-xl border border-[#e6e6e6] bg-white shadow-soft">
-                <div className="flex items-center gap-1.5 border-b border-[#e6e6e6] bg-[#faf8f5] px-3 py-2">
+              <div
+                className="mx-auto flex h-full flex-col overflow-hidden rounded-xl border border-[#e6e6e6] bg-white shadow-soft transition-all duration-300"
+                style={{ width: device === "mobile" ? "390px" : device === "tablet" ? "820px" : "100%", maxWidth: "100%" }}
+              >
+                <div className="flex shrink-0 items-center gap-1.5 border-b border-[#e6e6e6] bg-[#faf8f5] px-3 py-2">
                   <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
                   <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
                   <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
-                  <span className="ml-3 flex items-center gap-1 text-[11px] text-[#a39e98]"><Monitor className="h-3 w-3" /> preview</span>
+                  <span className="ml-3 flex items-center gap-1 text-[11px] capitalize text-[#a39e98]"><Monitor className="h-3 w-3" /> {device}</span>
                 </div>
                 {generating && !project.code ? (
-                  <div className="flex h-[calc(100%-33px)] flex-col items-center justify-center gap-4 bg-[#111111]">
+                  <div className="flex flex-1 flex-col items-center justify-center gap-4 bg-[#111111]">
                     <span className="relative flex h-16 w-16 items-center justify-center">
-                      <span className="absolute inset-0 animate-ping rounded-2xl bg-[#62aef0]/40" />
+                      <span className="absolute inset-0 animate-ping rounded-2xl bg-[#f9540b]/40" />
                       <Logo size={48} light showText={false} />
                     </span>
                     <p className="text-[15px] font-medium text-white">favicon.io is building your app...</p>
                     <p className="text-[13px] text-white/60">This usually takes 30–90 seconds</p>
                   </div>
+                ) : project.status === "error" && !project.code ? (
+                  <div className="flex flex-1 flex-col items-center justify-center gap-4 bg-[#faf8f5] px-8 text-center">
+                    <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#fdecec] text-[#e5484d]">
+                      <AlertTriangle className="h-7 w-7" />
+                    </span>
+                    <div>
+                      <p className="text-[16px] font-semibold text-[#1b1a18]">Generation didn't finish</p>
+                      <p className="mx-auto mt-1 max-w-sm text-[13px] text-[#615d59]">
+                        {project.error?.toLowerCase().includes("budget")
+                          ? "The AI usage limit was reached. Please try again shortly."
+                          : "Something went wrong while building. Please try again."}
+                      </p>
+                    </div>
+                    <button onClick={retry}
+                      className="flex items-center gap-1.5 rounded-full bg-[#f9540b] px-4 py-2 text-[14px] font-semibold text-white shadow-glow transition-colors hover:bg-[#d9430a]">
+                      <RefreshCw className="h-4 w-4" /> Try again
+                    </button>
+                  </div>
                 ) : (
-                  <iframe title="preview" srcDoc={injectWatermark(project.code)} className="h-[calc(100%-33px)] w-full" sandbox="allow-scripts allow-same-origin allow-forms" />
+                  <iframe title="preview" srcDoc={injectWatermark(project.code)} className="w-full flex-1" sandbox="allow-scripts allow-same-origin allow-forms" />
                 )}
               </div>
             ) : (

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Plus, Trash2, Loader2, LogOut, ArrowUp, LayoutGrid, FileText } from "lucide-react";
+import { Plus, Trash2, Loader2, LogOut, ArrowUp, LayoutGrid, FileText, Sparkles } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import api from "../lib/api";
 import { useToast } from "../hooks/use-toast";
 import Logo from "../components/Logo";
+import { templates } from "../data/templates";
 
 const AppHeader = () => {
   const { user, logout } = useAuth();
@@ -66,17 +67,22 @@ const Dashboard = () => {
     // eslint-disable-next-line
   }, []);
 
-  const createProject = async (p) => {
+  const createProject = async (p, name) => {
     const text = (p || prompt).trim();
     if (!text) return;
     setCreating(true);
     try {
-      const res = await api.post("/projects/generate", { prompt: text });
+      const res = await api.post("/projects/generate", name ? { prompt: text, name } : { prompt: text });
       navigate(`/build/${res.data.id}`);
     } catch (e) {
       toast({ title: "Generation failed", description: e?.response?.data?.detail || "Try again." });
       setCreating(false);
     }
+  };
+
+  const startFromTemplate = (t) => {
+    if (creating) return;
+    createProject(t.prompt, t.name);
   };
 
   const remove = async (id, e) => {
@@ -108,6 +114,37 @@ const Dashboard = () => {
               </button>
             </div>
           </div>
+        </div>
+
+        {/* Templates gallery */}
+        <div className="mt-12 flex items-center gap-2">
+          <Sparkles className="h-5 w-5 text-[#f9540b]" />
+          <h2 className="track-h3 text-[20px] font-bold text-black">Start from a template</h2>
+        </div>
+        <div className="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+          {templates.map((t) => {
+            const Icon = t.icon;
+            return (
+              <button
+                key={t.id}
+                onClick={() => startFromTemplate(t)}
+                disabled={creating}
+                className="group relative flex flex-col items-start rounded-xl border border-[#ece6df] bg-white p-4 text-left transition-all hover:-translate-y-1 hover:border-[#f9540b] hover:shadow-soft disabled:opacity-60"
+              >
+                <span
+                  className="flex h-10 w-10 items-center justify-center rounded-lg text-white"
+                  style={{ background: t.tint }}
+                >
+                  <Icon className="h-5 w-5" />
+                </span>
+                <p className="mt-3 text-[15px] font-semibold text-black">{t.name}</p>
+                <p className="mt-0.5 text-[12.5px] leading-snug text-[#615d59]">{t.desc}</p>
+                <span className="mt-3 inline-flex items-center gap-1 text-[12px] font-medium text-[#f9540b] opacity-0 transition-opacity group-hover:opacity-100">
+                  Use template <ArrowUp className="h-3 w-3 rotate-45" />
+                </span>
+              </button>
+            );
+          })}
         </div>
 
         <div className="mt-12 flex items-center gap-2">

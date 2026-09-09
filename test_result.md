@@ -262,26 +262,122 @@ backend:
         comment: "Not tested - Skipped due to project generation timeout via public URL. Backend code appears correct with proper Depends(get_current_user) on all project endpoints."
 
 frontend:
-  # No frontend testing as per instructions
+  - task: "User Registration Flow"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/Signup.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "✅ PASS - User registration works perfectly. Successfully creates new user account, navigates to /signup from homepage 'Start building' button, accepts email/password input (min 6 chars), and redirects to /dashboard after successful registration."
+
+  - task: "Templates Gallery - Start from a template"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/Dashboard.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "✅ PASS - Templates gallery renders perfectly. 'Start from a template' section displays with all 8 template cards (SaaS Landing Page, Personal Portfolio, Admin Dashboard, Blog, E-commerce Store, Task Manager, Restaurant Menu, Event/Landing). Clicking a template (e.g., 'SaaS Landing Page') correctly navigates to /build/<id> and initiates project generation."
+
+  - task: "Loading State - Building Animation"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/Builder.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "✅ PASS - Loading state displays correctly. Shows 'favicon.io is building your app...' message with animated logo and 'This usually takes 30-90 seconds' text while project is generating."
+
+  - task: "Device Preview Toggles (Desktop/Tablet/Mobile)"
+    implemented: true
+    working: false
+    file: "/app/frontend/src/pages/Builder.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "❌ FAIL - Device preview toggles are NOT working. The three toggle buttons (Desktop/Tablet/Mobile) are visible and clickable, but the preview container width does NOT change when clicking them. Expected behavior: Mobile=390px, Tablet=820px, Desktop=100% (full width). Actual behavior: Width stays at full viewport width (1920px) for all three modes. The inline style attribute is not being applied to the preview container. Code review shows correct implementation in Builder.jsx line 270 with conditional width styling, but the style is not being applied at runtime. NOTE: Testing was limited because LLM budget was exceeded, resulting in empty preview content."
+
+  - task: "Code Tab - View Generated HTML"
+    implemented: true
+    working: false
+    file: "/app/frontend/src/pages/Builder.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "❌ FAIL - Code tab shows placeholder '// Generating code...' instead of actual generated HTML. When project status is 'error' (due to LLM budget exceeded), the code field is empty but the tab still displays the placeholder message instead of showing an error state or the actual error message. Tab switching between Preview and Code works correctly."
+
+  - task: "Watermark Badge - Made with favicon.io"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/pages/Builder.jsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "testing"
+        comment: "NOT TESTED - Could not verify watermark badge because preview had no generated HTML content (LLM budget exceeded). Code review shows watermark injection logic exists in Builder.jsx lines 14-23 (injectWatermark function) and is applied on line 288. Needs retesting once LLM generation is working."
+
+  - task: "Dashboard - My Projects List"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/Dashboard.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "✅ PASS - 'My Projects' section works correctly. New projects appear in the list after creation. Shows project name, last updated date, and status indicators (Building/Live). Navigation back to dashboard from builder works correctly via back button."
+
+  - task: "Preview Tab - Display Generated Content"
+    implemented: true
+    working: false
+    file: "/app/frontend/src/pages/Builder.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "❌ FAIL - Preview shows blank/empty content when project status is 'error'. Error handling shows toast notification (line 72) but preview area remains blank instead of displaying a proper error state. When code is empty, the iframe shows 'about:srcdoc' with no content. Better error UX needed."
 
 metadata:
   created_by: "testing_agent"
-  version: "1.0"
-  test_sequence: 1
-  run_ui: false
-  last_updated: "2026-09-09 06:45:00 UTC"
+  version: "1.1"
+  test_sequence: 2
+  run_ui: true
+  last_updated: "2026-09-09 11:05:00 UTC"
 
 test_plan:
   current_focus:
-    - "AI Project Generation - New Project (POST /api/projects/generate)"
-    - "List Projects (GET /api/projects)"
-    - "Get Specific Project (GET /api/projects/{id})"
-    - "Project Iteration (POST /api/projects/generate with project_id)"
+    - "Device Preview Toggles (Desktop/Tablet/Mobile)"
+    - "Code Tab - View Generated HTML"
+    - "Watermark Badge - Made with favicon.io"
+    - "Preview Tab - Display Generated Content"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
-  notes: "All auth endpoints working perfectly. Project generation works locally but times out via public URL due to ingress timeout configuration."
+  notes: "Frontend testing completed. CRITICAL BLOCKER: Emergent LLM API key budget exceeded ($2.99/$2.93 limit). This prevents new project generation and blocks full testing of preview-related features. Device toggles implementation looks correct in code but not working at runtime. Error handling needs improvement."
 
 agent_communication:
   - agent: "testing"
     message: "Completed comprehensive backend API testing. All AUTH flows (8/8 tests) passed successfully. Google session rejection works correctly. AI generation backend code is fully functional - verified by local testing which successfully generated 34KB of HTML in 110 seconds using Claude via Emergent LLM. However, public URL access fails with 502 Bad Gateway due to ingress/nginx timeout (~60s) being shorter than LLM generation time (~110s). This is an infrastructure configuration issue, not a code issue. Remaining project endpoints (list, get, iterate, delete, github, publish) could not be tested via public URL but code review shows correct implementation."
+  - agent: "testing"
+    message: "Completed frontend UI testing for favicon.io app. CRITICAL BLOCKER FOUND: Emergent LLM API key budget exceeded (current: $2.99, limit: $2.93). Error: 'litellm.RateLimitError: Budget has been exceeded! Key=dagfoqe9nqvc73fqt1c0'. This prevents new projects from generating and blocks testing of preview features. WORKING: User registration (✅), Templates gallery (✅), Loading state (✅), Dashboard/Projects list (✅). FAILING: Device preview toggles (❌ - buttons visible but width doesn't change), Code tab (❌ - shows placeholder instead of error), Preview error handling (❌ - blank screen instead of error message). NEEDS RETEST: Watermark badge (couldn't test due to no generated content). Main agent must resolve LLM budget issue before device toggles and preview features can be properly tested."
