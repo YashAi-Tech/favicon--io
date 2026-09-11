@@ -20,15 +20,16 @@ from emergentintegrations.llm.chat import LlmChat, UserMessage
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
-mongo_url = os.environ['MONGO_URL']
+mongo_url = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
+db_name = os.environ.get('DB_NAME', 'favicon_db')
 client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
+db = client[db_name]
 
-EMERGENT_LLM_KEY = os.environ.get('EMERGENT_LLM_KEY')
-GEN_MODEL_PROVIDER = "anthropic"
-GEN_MODEL_NAME = "claude-sonnet-4-5-20250929"
+EMERGENT_LLM_KEY = os.environ.get('EMERGENT_LLM_KEY', '')
+GEN_MODEL_PROVIDER = os.environ.get('GEN_MODEL_PROVIDER', 'anthropic')
+GEN_MODEL_NAME = os.environ.get('GEN_MODEL_NAME', 'claude-sonnet-4-5-20250929')
 
-app = FastAPI()
+app = FastAPI(title="Favicon IO / Web Builder API")
 api_router = APIRouter(prefix="/api")
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -389,6 +390,11 @@ async def publish_project(project_id: str, user: User = Depends(get_current_user
 
 app.include_router(api_router)
 
+@app.get("/")
+@app.get("/health")
+async def health_check():
+    return {"status": "ok", "service": "favicon-io-backend"}
+
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
@@ -401,3 +407,10 @@ app.add_middleware(
 @app.on_event("shutdown")
 async def shutdown_db_client():
     client.close()
+
+
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("server:app", host="0.0.0.0", port=port, reload=False)
+
